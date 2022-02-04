@@ -23,6 +23,10 @@ export const client = prismic.createClient(endpoint, {
     {
       type: "home",
       path: "/:lang"
+    },
+    {
+      type: "metadata",
+      path: "/:lang/rss"
     }
   ],
 });
