@@ -1,5 +1,14 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
 
 :root {
-	--font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', Pretendard, Roboto, 'Noto Sans KR', 'Segoe UI', 'Malgun Gothic', sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    Pretendard, Roboto, "Noto Sans KR", "Segoe UI", "Malgun Gothic", sans-serif;
+}
+
+article > hr {
+  margin-right: calc(var(--block-spacing-horizontal) * -1);
+  margin-left: calc(var(--block-spacing-horizontal) * -1);
+  margin-top: var(--block-spacing-vertical);
+  margin-bottom: var(--block-spacing-vertical);
+  border-top: var(--border-width) solid var(--card-border-color);
 }
