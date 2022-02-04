@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LinksFunction,
   LiveReload,
@@ -66,7 +67,12 @@ export default function App() {
       </head>
       <body>
         <GNB data={gnb} />
-        <PrismicProvider client={client}>
+        <PrismicProvider
+          client={client}
+          internalLinkComponent={({ href, ...props }) => (
+            <Link to={href} {...props} />
+          )}
+        >
           <Outlet />
           {isPreviewUser && <PrismicToolbar repositoryName={repositoryName} />}
         </PrismicProvider>
