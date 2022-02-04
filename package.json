@@ -9,6 +9,7 @@
     "postinstall": "remix setup node"
   },
   "dependencies": {
+    "@giscus/react": "^1.1.1",
     "@prismicio/client": "^6.1.1",
     "@prismicio/helpers": "^2.1.0",
     "@prismicio/react": "^2.0.5",

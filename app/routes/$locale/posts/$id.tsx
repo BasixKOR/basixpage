@@ -2,6 +2,7 @@ import { PrismicRichText } from "@prismicio/react";
 import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
 import { client, Post } from "~/utils/prismic";
 import * as prismicH from "@prismicio/helpers";
+import { Giscus } from "@giscus/react";
 
 export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
   return await client.getByUID<Post>("post", params.id!, {
@@ -13,7 +14,7 @@ export const meta: MetaFunction = ({ parentsData }) => {
   const post: Post = parentsData.root;
 
   return {
-		title: prismicH.asText(post.data.title)!,
+    title: prismicH.asText(post.data.title)!,
     "og:title": prismicH.asText(post.data.title)!,
     "og:type": "article",
     "og:url": post.url!,
@@ -31,6 +32,18 @@ export default function Post() {
         <hr />
         <PrismicRichText field={data.data.content} />
       </article>
+      <Giscus
+        repo="BasixKOR/basixpage"
+        repoId="R_kgDOGybrlw"
+        category="Comments"
+        category-id="DIC_kwDOGybrl84CBAPV"
+        mapping="pathname"
+        reactions-enabled="1"
+        emit-metadata="0"
+        input-position="top"
+        theme="preferred_color_scheme"
+        lang={data.lang.slice(0, 2)}
+      />
     </div>
   );
 }
