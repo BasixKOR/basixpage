@@ -10,9 +10,7 @@ export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
   });
 };
 
-export const meta: MetaFunction = ({ parentsData }) => {
-  const post: Post = parentsData.root;
-
+export const meta: MetaFunction = ({ data: post }) => {
   return {
     title: prismicH.asText(post.data.title)!,
     "og:title": prismicH.asText(post.data.title)!,
