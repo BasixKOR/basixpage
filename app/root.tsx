@@ -2,6 +2,7 @@ import {
   Links,
   LinksFunction,
   LiveReload,
+  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
@@ -9,6 +10,8 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import css from "./theme.css";
+import { client, repositoryName } from "./utils/prismic";
+import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
@@ -36,7 +39,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <PrismicProvider client={client}>
+          <Outlet />
+          <PrismicToolbar repositoryName={repositoryName} />
+        </PrismicProvider>
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
