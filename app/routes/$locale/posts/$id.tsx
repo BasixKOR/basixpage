@@ -25,9 +25,12 @@ export default function Post() {
   return (
     <div className="container">
       <article>
-        <PrismicRichText field={data.data.title} />
-        <span>{data.data.description}</span>
-        <hr />
+        <header>
+          <hgroup>
+            <PrismicRichText field={data.data.title} />
+            <h3>{data.data.description}</h3>
+          </hgroup>
+        </header>
         <PrismicRichText field={data.data.content} />
       </article>
       <Giscus
