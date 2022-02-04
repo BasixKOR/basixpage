@@ -1,3 +1,4 @@
+import { PrismicRichText } from "@prismicio/react";
 import { Link, LoaderFunction, useLoaderData } from "remix";
 import { client, Post } from "~/utils/prismic";
 
@@ -11,14 +12,15 @@ export default function Index() {
   const data = useLoaderData<Awaited<ReturnType<typeof loader>>>();
 
   return (
-    <ul>
+    <div className="container">
       {data.map((post) => (
-        <li key={post.uid}>
+        <article key={post.uid}>
           <Link to={post.url!}>
-            {post.data.title[0]?.text}
+            <PrismicRichText field={post.data.title} />
           </Link>
-        </li>
+          {post.data.description}
+        </article>
       ))}
-    </ul>
+    </div>
   );
 }

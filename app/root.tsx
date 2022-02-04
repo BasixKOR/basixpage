@@ -7,11 +7,13 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
 import css from "./theme.css";
-import { client, repositoryName } from "./utils/prismic";
+import { client, repositoryName, GNB as TGNB } from "./utils/prismic";
 import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
+import GNB from "./components/GNB";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
@@ -29,7 +31,13 @@ export const links: LinksFunction = () => [
   },
 ];
 
+export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
+  return await client.getSingle<TGNB>("gnb", { lang: params.locale });
+};
+
 export default function App() {
+  const data = useLoaderData<TGNB>();
+
   return (
     <html lang="en">
       <head>
@@ -39,6 +47,7 @@ export default function App() {
         <Links />
       </head>
       <body>
+        <GNB data={data} />
         <PrismicProvider client={client}>
           <Outlet />
           <PrismicToolbar repositoryName={repositoryName} />

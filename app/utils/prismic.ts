@@ -32,4 +32,12 @@ export type Post = prismicT.PrismicDocument<{
 export type Metadata = prismicT.PrismicDocument<{
   title: prismicT.KeyTextField;
   description: prismicT.KeyTextField;
-}>
+}>;
+
+export type GNB = prismicT.PrismicDocument<{
+  title: prismicT.TitleField;
+  menu_item: prismicT.GroupField<{
+    item_title: prismicT.KeyTextField;
+    url: prismicT.LinkField;
+  }>;
+}>;
