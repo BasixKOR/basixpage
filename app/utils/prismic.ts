@@ -25,6 +25,11 @@ export const client = prismic.createClient(endpoint, {
 
 export type Post = prismicT.PrismicDocument<{
   title: prismicT.TitleField;
-  created_at: prismicT.TimestampField;
+  description: prismicT.KeyTextField;
   content: prismicT.RichTextField;
 }>;
+
+export type Metadata = prismicT.PrismicDocument<{
+  title: prismicT.KeyTextField;
+  description: prismicT.KeyTextField;
+}>

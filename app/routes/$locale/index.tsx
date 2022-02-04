@@ -3,11 +3,6 @@ import { client, Post } from "~/utils/prismic";
 
 export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
   return await client.getAllByType<Post>("post", {
-    orderings: {
-      field: "my.post.created_at",
-      direction: "desc",
-    },
-    pageSize: 10,
     lang: params.locale
   });
 };
