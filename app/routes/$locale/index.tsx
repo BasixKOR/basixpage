@@ -1,10 +1,13 @@
 import { PrismicRichText } from "@prismicio/react";
+import { formatRelative, parseISO } from "date-fns";
+import { Calendar } from "react-feather";
 import { Link, LoaderFunction, useLoaderData } from "remix";
+import { getDateFnsLocale } from "~/utils/i18n";
 import { client, Post } from "~/utils/prismic";
 
 export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
   return await client.getAllByType<Post>("post", {
-    lang: params.locale
+    lang: params.locale,
   });
 };
 
@@ -18,7 +21,13 @@ export default function Index() {
           <Link to={post.url!}>
             <PrismicRichText field={post.data.title} />
           </Link>
-          {post.data.description}
+          <span>
+            <Calendar />{" "}
+            {formatRelative(parseISO(post.first_publication_date), new Date(), {
+              locale: getDateFnsLocale(post.lang),
+            })}
+          </span>
+          <p>{post.data.description}</p>
         </article>
       ))}
     </div>

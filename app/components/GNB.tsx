@@ -15,7 +15,7 @@ export default function GNB({ data }: GNBProps) {
       </ul>
       <ul>
         {data.data.menu_item.map((item) => (
-          <li>
+          <li key={item.item_title}>
             <PrismicLink field={item.url}>{item.item_title}</PrismicLink>
           </li>
         ))}
