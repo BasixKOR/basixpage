@@ -20,6 +20,10 @@ export const client = prismic.createClient(endpoint, {
       type: "post",
       path: "/:lang/posts/:uid",
     },
+    {
+      type: "home",
+      path: "/:lang"
+    }
   ],
 });
 
@@ -40,4 +44,9 @@ export type GNB = prismicT.PrismicDocument<{
     item_title: prismicT.KeyTextField;
     url: prismicT.LinkField;
   }>;
+}>;
+
+export type Home = prismicT.PrismicDocument<{
+  title: prismicT.TitleField;
+  content: prismicT.RichTextField;
 }>;
