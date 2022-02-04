@@ -10,7 +10,10 @@ import {
   useLoaderData,
 } from "remix";
 import type { MetaFunction } from "remix";
+
 import css from "./theme.css";
+import logo from "~/assets/basixlab.svg";
+
 import { client, repositoryName, GNB as TGNB } from "./utils/prismic";
 import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
 import GNB from "./components/GNB";
@@ -29,6 +32,11 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: css,
   },
+  {
+    rel: "icon",
+    type: "image/svg+xml",
+    href: logo
+  }
 ];
 
 export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
