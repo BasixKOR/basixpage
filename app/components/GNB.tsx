@@ -1,4 +1,6 @@
 import { PrismicLink } from "@prismicio/react";
+import { Globe } from "react-feather";
+import { Link } from "remix";
 import type { GNB } from "~/utils/prismic";
 
 interface GNBProps {
@@ -19,6 +21,11 @@ export default function GNB({ data }: GNBProps) {
             <PrismicLink field={item.url}>{item.item_title}</PrismicLink>
           </li>
         ))}
+        <li key="$lang">
+          <Link to={data.lang === "ko-kr" ? "/en-gb" : "/ko-kr"}>
+            <Globe />
+          </Link>
+        </li>
       </ul>
     </nav>
   );
