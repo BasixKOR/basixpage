@@ -16,6 +16,7 @@ import logo from "~/assets/basixlab.svg";
 
 import { client, repositoryName, GNB as TGNB } from "./utils/prismic";
 import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
+import { cookie as previewCookie } from "./routes/preview";
 import GNB from "./components/GNB";
 
 export const meta: MetaFunction = () => {
@@ -35,16 +36,25 @@ export const links: LinksFunction = () => [
   {
     rel: "icon",
     type: "image/svg+xml",
-    href: logo
-  }
+    href: logo,
+  },
 ];
 
-export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
-  return await client.getSingle<TGNB>("gnb", { lang: params.locale });
+interface LoaderData {
+  gnb: TGNB;
+  isPreviewUser: boolean;
+}
+
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const gnb = await client.getSingle<TGNB>("gnb", { lang: params.locale });
+  const isPreviewUser =
+    (await previewCookie.parse(request.headers.get("Cookie"))) ?? false;
+
+  return { gnb, isPreviewUser };
 };
 
 export default function App() {
-  const data = useLoaderData<TGNB>();
+  const { gnb, isPreviewUser } = useLoaderData<LoaderData>();
 
   return (
     <html lang="en">
@@ -55,10 +65,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <GNB data={data} />
+        <GNB data={gnb} />
         <PrismicProvider client={client}>
           <Outlet />
-          <PrismicToolbar repositoryName={repositoryName} />
+          {isPreviewUser && <PrismicToolbar repositoryName={repositoryName} />}
         </PrismicProvider>
         <ScrollRestoration />
         <Scripts />
