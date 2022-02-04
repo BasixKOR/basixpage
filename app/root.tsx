@@ -16,7 +16,7 @@ import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
 import GNB from "./components/GNB";
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  return { title: "Basixpage" };
 };
 
 export const links: LinksFunction = () => [
