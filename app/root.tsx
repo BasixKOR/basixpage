@@ -1,16 +1,30 @@
 import {
   Links,
+  LinksFunction,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration,
 } from "remix";
 import type { MetaFunction } from "remix";
+import css from "./theme.css";
 
 export const meta: MetaFunction = () => {
   return { title: "New Remix App" };
 };
+
+export const links: LinksFunction = () => [
+  {
+    rel: "stylesheet",
+    crossOrigin: "anonymous",
+    href: "https://unpkg.com/@picocss/pico@1.4.4/css/pico.min.css",
+  },
+  {
+    rel: "stylesheet",
+    href: css,
+  },
+];
 
 export default function App() {
   return (
