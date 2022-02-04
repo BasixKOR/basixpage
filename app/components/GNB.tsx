@@ -12,7 +12,9 @@ export default function GNB({ data }: GNBProps) {
     <nav className="container">
       <ul>
         <li>
-          <strong>{data.data.title[0]?.text}</strong>
+          <Link to={`/${data.lang}`}>
+            <strong>{data.data.title[0]?.text}</strong>
+          </Link>
         </li>
       </ul>
       <ul>
