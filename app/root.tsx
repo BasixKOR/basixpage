@@ -43,19 +43,18 @@ export const links: LinksFunction = () => [
 
 interface LoaderData {
   gnb: TGNB;
-  isPreviewUser: boolean;
+  previewRef: string;
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
   const gnb = await client.getSingle<TGNB>("gnb", { lang: params.locale });
-  const isPreviewUser =
-    (await previewCookie.parse(request.headers.get("Cookie"))) ?? false;
+  const previewRef = await previewCookie.parse(request.headers.get("Cookie"));
 
-  return { gnb, isPreviewUser };
+  return { gnb, previewRef };
 };
 
 export default function App() {
-  const { gnb, isPreviewUser } = useLoaderData<LoaderData>();
+  const { gnb, previewRef } = useLoaderData<LoaderData>();
 
   return (
     <html lang="en">
@@ -74,7 +73,7 @@ export default function App() {
           )}
         >
           <Outlet />
-          {isPreviewUser && <PrismicToolbar repositoryName={repositoryName} />}
+          {previewRef && <PrismicToolbar repositoryName={repositoryName} />}
         </PrismicProvider>
         <ScrollRestoration />
         <Scripts />
