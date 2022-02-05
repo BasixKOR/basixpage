@@ -13,7 +13,7 @@ export default async function handleRequest(
   remixContext: EntryContext
 ) {
   const url = new URL(request.url);
-  const cookie = createCookie("basixpage_v1_locale", {
+  const localeCookie = createCookie("basixpage_v1_locale", {
     path: "/",
     httpOnly: true,
     sameSite: "strict",
@@ -26,13 +26,15 @@ export default async function handleRequest(
     !isPreview
   ) {
     // checks if the URL doesn't contain a valid language
-    const preferredLanguage = await cookie.parse(request.headers.get("Cookie"));
+    const preferredLanguage = await localeCookie.parse(
+      request.headers.get("Cookie")
+    );
     const language = preferredLanguage || repository.languages[0].id;
     return new Response(`/${language}${url.pathname}`, {
       status: 302,
       headers: {
         Location: `/${language}${url.pathname}`,
-        "Set-Cookie": await cookie.serialize(language),
+        "Set-Cookie": await localeCookie.serialize(language),
       },
     });
   }
@@ -45,7 +47,7 @@ export default async function handleRequest(
   if (!isPreview)
     responseHeaders.set(
       "Set-Cookie",
-      await cookie.serialize(url.pathname.split("/")[1])
+      await localeCookie.serialize(url.pathname.split("/")[1])
     );
 
   return new Response("<!DOCTYPE html>" + markup, {
