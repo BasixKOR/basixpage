@@ -92,11 +92,11 @@ export default function Post() {
           repo="BasixKOR/basixpage"
           repoId="R_kgDOGybrlw"
           category="Comments"
-          category-id="DIC_kwDOGybrl84CBAPV"
+          categoryId="DIC_kwDOGybrl84CBAPV"
           mapping="pathname"
-          reactions-enabled="1"
-          emit-metadata="0"
-          input-position="top"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
           theme="preferred_color_scheme"
           lang={locale}
         />
