@@ -6,6 +6,7 @@ const { getSession, commitSession, destroySession } =
       name: "basixpage_session",
       maxAge: 604_800,
       path: '/',
+      secrets: [process.env.SESSION_SECRET!],
     }
   });
 
