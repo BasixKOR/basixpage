@@ -25,7 +25,7 @@ export default function ArticlesList({ data, locale }: ArticlesListProps) {
     <>
       {data.map((post) => (
         <article key={post.slug}>
-          <Link to={`/${locale}/${post.slug}`}>
+          <Link to={`/${locale}/posts/${post.slug}`}>
             <h1>{post.title}</h1>
           </Link>
           <span>
