@@ -35,7 +35,7 @@ export async function load<T>({
   const json = await res.json();
 
   if (!res.ok || json.errors) {
-    console.error("Ouch! The query has some errors!", json);
+    console.error("Ouch! The query has some errors!", JSON.stringify(json.errors, null, 2));
     throw json.errors ?? json;
   }
 
