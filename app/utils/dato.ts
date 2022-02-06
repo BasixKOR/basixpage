@@ -42,6 +42,12 @@ export async function load<T>({
   return json.data;
 }
 
+function getEnvironment() {
+  if (process.env.DATOCMS_ENVIRONMENT) return process.env.DATOCMS_ENVIRONMENT;
+  else if (process.env.NODE_ENV === "development") return "development";
+  else if (process.env.VERCEL_GIT_COMMIT_REF?.startsWith("env/")) return process.env.VERCEL_GIT_COMMIT_REF.slice(4);
+}
+
 interface QueryOptions extends LoadOptions {
   request: Request;
 }
@@ -59,7 +65,7 @@ export async function datoQuerySubscription<T = any>({
         preview: true,
         initialData: await load<T>({ ...gqlRequest, preview: true }),
         token: process.env.DATOCMS_READONLY_TOKEN!,
-        environment: process.env.DATOCMS_ENVIRONMENT ?? undefined,
+        environment: getEnvironment(),
       }
     : {
         enabled: false,
