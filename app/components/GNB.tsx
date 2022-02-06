@@ -16,6 +16,7 @@ export const fragment = gql`
       ... on GnbItemRecord {
         title
         link {
+          __typename
           ... on ArticleRecord {
             slug
           }
