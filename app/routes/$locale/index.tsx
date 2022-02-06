@@ -7,6 +7,7 @@ import { HomepageQuery } from "~/graphql/generated";
 import { OutletData } from "~/root";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import { fragment as articlesListFragment } from "~/components/ArticlesList";
+import { fragment as imageFragment } from "~/components/Image";
 
 export const loader: LoaderFunction = ({ params, request }) => {
   return datoQuerySubscription({
@@ -25,6 +26,10 @@ export const loader: LoaderFunction = ({ params, request }) => {
                 title
               }
             }
+            blocks {
+              __typename
+              ...Image
+            }
           }
           content {
             __typename
@@ -37,6 +42,7 @@ export const loader: LoaderFunction = ({ params, request }) => {
         }
       }
       ${articlesListFragment}
+      ${imageFragment}
     `,
     variables: {
       locale: params.locale,

@@ -4,6 +4,8 @@ import {
   StructuredTextGraphQlResponseRecord,
 } from "react-datocms";
 import { Link } from "remix";
+import ArticlesList from "./ArticlesList";
+import Image from "./Image";
 
 // React support utility.
 
@@ -15,6 +17,10 @@ type RenderInlineRecordContext<R extends StructuredTextGraphQlResponseRecord> =
 type RenderRecordLinkContext<R extends StructuredTextGraphQlResponseRecord> =
   Parameters<
     Exclude<DatoStructuredTextPropTypes<R, R>["renderLinkToRecord"], undefined>
+  >[0];
+type RenderBlockContext<R extends StructuredTextGraphQlResponseRecord> =
+  Parameters<
+    Exclude<DatoStructuredTextPropTypes<R, R>["renderBlock"], undefined>
   >[0];
 
 function renderInlineRecordFallback<
@@ -42,6 +48,27 @@ function renderLinkToRecordFallback<
       );
     default:
       throw new Error("Unknown record type");
+  }
+}
+
+// TODO: Make this type-safe somehow.
+function renderBlockFallback<
+  R extends StructuredTextGraphQlResponseRecord
+>({ record }: RenderBlockContext<R>, locale: string) {
+  switch (record.__typename) {
+    case "ArticlesListRecord":
+      return (
+        <ArticlesList
+          // @ts-expect-error
+          data={record.articles}
+          locale={locale}
+        />
+      );
+    case "ImageRecord":
+      // @ts-expect-error
+      return <Image data={record} />;
+    default:
+      throw new Error("Unknown block type");
   }
 }
 
@@ -74,6 +101,7 @@ export interface StructuredTextPropTypes<
 export function StructuredText<R1 extends StructuredTextGraphQlResponseRecord, R2 extends StructuredTextGraphQlResponseRecord>({
   renderInlineRecord,
   renderLinkToRecord,
+  renderBlock,
 	locale,
   ...props
 }: StructuredTextPropTypes<R1, R2>) {
@@ -88,6 +116,11 @@ export function StructuredText<R1 extends StructuredTextGraphQlResponseRecord, R
         renderLinkToRecord,
         renderLinkToRecordFallback,
 				[locale]
+      )}
+      renderBlock={fallback(
+        renderBlock,
+        renderBlockFallback,
+        [locale]
       )}
       {...props}
     />
