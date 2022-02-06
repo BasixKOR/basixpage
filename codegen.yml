@@ -13,6 +13,7 @@ config:
     IntType: number
     JsonField: react-datocms#StructuredTextDocument # Unsure this field has purposes other than this.
     MetaTagAttributes: Record<string, string> # Not my choice, it was copied from react-datocms
+    ItemId: string
 generates:
   app/graphql/generated.ts:
     documents:
