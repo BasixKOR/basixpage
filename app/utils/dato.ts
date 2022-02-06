@@ -1,6 +1,6 @@
 import dedent from "dedent";
 import type { QueryListenerOptions as DatoQueryListenerOptions } from "react-datocms";
-import { getSession } from "./sessions";
+import { getSession } from "./sessions.server";
 
 interface LoadOptions {
   query: string;

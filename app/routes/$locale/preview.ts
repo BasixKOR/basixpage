@@ -1,5 +1,5 @@
 import { LoaderFunction, redirect } from "remix";
-import { commitSession, getSession } from "~/utils/sessions";
+import { commitSession, getSession } from "~/utils/sessions.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
