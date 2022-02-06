@@ -18,6 +18,7 @@ generates:
     documents:
       - "./app/**/*.ts"
       - "./app/**/*.tsx"
+      - "./app/fragments.graphql"
     plugins:
       - typescript
       - typescript-operations
