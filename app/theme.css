@@ -12,3 +12,7 @@ article > hr {
   margin-bottom: var(--block-spacing-vertical);
   border-top: var(--border-width) solid var(--card-border-color);
 }
+
+li > p {
+  margin-bottom: unset;
+}
