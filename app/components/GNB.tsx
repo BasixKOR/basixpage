@@ -36,6 +36,8 @@ function renderItem(
       return <Link to={`/${locale}`}>{title}</Link>;
     case "ResumeRecord":
       return <Link to={`/${locale}/resume`}>{title}</Link>;
+    case "PostsPageRecord":
+      return <Link to={`/${locale}/posts`}>{title}</Link>;
     case undefined:
       return <span>null</span>;
   }
