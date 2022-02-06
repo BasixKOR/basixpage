@@ -28,6 +28,14 @@ export const loader = async ({
           description
           content {
             value
+            links {
+              __typename
+              ... on ArticleRecord {
+                id
+                slug
+                title
+              }
+            }
             blocks {
               __typename
               ... on ArticlesListRecord {
