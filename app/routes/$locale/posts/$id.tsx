@@ -1,7 +1,4 @@
-import { PrismicRichText } from "@prismicio/react";
 import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { client, makePrismicRequest, Post } from "~/utils/prismic";
-import * as prismicH from "@prismicio/helpers";
 import { Giscus } from "@giscus/react";
 
 export const loader = async ({ params, request }: Parameters<LoaderFunction>[0]) => {

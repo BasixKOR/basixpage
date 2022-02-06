@@ -1,6 +1,4 @@
-import { PrismicRichText } from "@prismicio/react";
 import { LoaderFunction, useLoaderData } from "remix";
-import { client, Home } from "~/utils/prismic";
 
 export const loader: LoaderFunction = ({ params }) => {
   return client.getSingle<Home>("home", { lang: params.locale });

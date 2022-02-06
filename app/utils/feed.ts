@@ -1,6 +1,4 @@
 import { Feed } from "feed";
-import { client, Metadata, Post } from "./prismic";
-import * as prismicH from '@prismicio/helpers'
 
 export async function getFeed(url: URL, language: string): Promise<Feed> {
 	const metadata = await client.getSingle<Metadata>("metadata", { lang: language });

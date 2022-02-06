@@ -1,5 +1,4 @@
 import { createCookie, LoaderFunction, redirect } from "remix";
-import { client } from "~/utils/prismic";
 import qs from "qs";
 
 export const cookie = createCookie("basixpage_preview", {
