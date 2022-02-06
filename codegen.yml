@@ -1,0 +1,31 @@
+schema:
+  - "https://graphql.datocms.com/environments/development":
+      headers:
+        Authorization: Bearer f2859b89942f0d5c3a17301a930f72
+config:
+  defaultScalarType: unknown
+  useTypeImports: true
+  avoidOptionals: true
+  scalars:
+    DateTime: string
+    FloatType: number
+    BooleanType: boolean
+    IntType: number
+    JsonField: react-datocms#StructuredTextDocument # Unsure this field has purposes other than this.
+    MetaTagAttributes: Record<string, string> # Not my choice, it was copied from react-datocms
+generates:
+  app/graphql/generated.ts:
+    documents:
+      - "./app/**/*.ts"
+      - "./app/**/*.tsx"
+    plugins:
+      - typescript
+      - typescript-operations
+  app/graphql/fragments.ts:
+    documents:
+      - "./app/fragments.graphql"
+    plugins:
+      - typescript-document-nodes
+    config:
+      importOperationTypesFrom: ./generated
+      gqlImport: ~/utils/dato#gql

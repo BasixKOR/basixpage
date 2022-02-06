@@ -15,10 +15,11 @@ import type { MetaFunction } from "remix";
 import css from "./theme.css";
 import logo from "~/assets/basixlab.svg";
 
-import { client, repositoryName, GNB as TGNB } from "./utils/prismic";
-import { PrismicProvider, PrismicToolbar } from "@prismicio/react";
-import { cookie as previewCookie } from "./routes/preview";
-import GNB from "./components/GNB";
+import GNB, { fragment as gnbFragment } from "./components/GNB";
+import { datoQuerySubscription, gql, QueryListenerOptions } from "./utils/dato";
+import { RootQuery } from "./graphql/generated";
+import { renderMetaTags, useQuerySubscription } from "react-datocms";
+import { MetaTagsFragment } from "./graphql/fragments";
 
 export const meta: MetaFunction = () => {
   return { title: "Basixpage" };
@@ -42,19 +43,43 @@ export const links: LinksFunction = () => [
 ];
 
 interface LoaderData {
-  gnb: TGNB;
-  previewRef: string;
+  query: QueryListenerOptions<RootQuery>;
+  locale: string;
+}
+
+export interface OutletData {
+  locale: string;
 }
 
 export const loader: LoaderFunction = async ({ params, request }) => {
-  const gnb = await client.getSingle<TGNB>("gnb", { lang: params.locale });
-  const previewRef = await previewCookie.parse(request.headers.get("Cookie"));
-
-  return { gnb, previewRef };
+  return {
+    query: await datoQuerySubscription({
+      request,
+      query: gql`
+        query Root($locale: SiteLocale) {
+          _site {
+            faviconMetaTags {
+              ...metaTagsFragment
+            }
+          }
+          gnb(locale: $locale) {
+            ...gnbFragment
+          }
+        }
+        ${MetaTagsFragment}
+        ${gnbFragment}
+      `,
+      variables: {
+        locale: params.locale,
+      },
+    }),
+    locale: params.locale,
+  };
 };
 
 export default function App() {
-  const { gnb, previewRef } = useLoaderData<LoaderData>();
+  const { query, locale } = useLoaderData<LoaderData>();
+  const { data } = useQuerySubscription(query);
 
   return (
     <html lang="en">
@@ -63,18 +88,11 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        {renderMetaTags(data?._site.faviconMetaTags!)}
       </head>
       <body>
-        <GNB data={gnb} />
-        <PrismicProvider
-          client={client}
-          internalLinkComponent={({ href, ...props }) => (
-            <Link to={href} {...props} />
-          )}
-        >
-          <Outlet />
-          {previewRef && <PrismicToolbar repositoryName={repositoryName} />}
-        </PrismicProvider>
+        <GNB data={data!.gnb} locale={locale} />
+        <Outlet context={{ locale }} />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}

@@ -1,31 +1,59 @@
 import { formatRelative, parseISO } from "date-fns";
+import { useQuerySubscription } from "react-datocms";
 import { Calendar } from "react-feather";
-import { Link, LoaderFunction, useLoaderData } from "remix";
+import { Link, LoaderFunction, useLoaderData, useOutletContext } from "remix";
+import { GetPostsQuery } from "~/graphql/generated";
+import { OutletData } from "~/root";
+import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import { getDateFnsLocale } from "~/utils/i18n";
 
-export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
-  return await client.getAllByType<Post>("post", {
-    lang: params.locale,
+export const loader = async ({
+  params,
+  request,
+}: Parameters<LoaderFunction>[0]) => {
+  const a = await datoQuerySubscription({
+    request,
+    query: gql`
+      query getPosts($locale: SiteLocale) {
+        allArticles(locale: $locale) {
+          createdAt
+          id
+          slug
+          title
+          description
+        }
+      }
+    `,
+    variables: {
+      locale: params.locale,
+    },
   });
+  debugger;
+  console.log("from loader:", a);
+  return a;
 };
 
 export default function Posts() {
-  const data = useLoaderData<Awaited<ReturnType<typeof loader>>>();
+  debugger
+  const query = useLoaderData<QueryListenerOptions<GetPostsQuery>>();
+  const { data } = useQuerySubscription(query);
+  const { locale } = useOutletContext<OutletData>();
 
   return (
     <div className="container">
-      {data.map((post) => (
-        <article key={post.uid}>
-          <Link to={post.url!}>
-            <PrismicRichText field={post.data.title} />
+      {data!.allArticles.map((post) => (
+        <article key={post.slug}>
+          <Link to={`/${locale}/${post.slug}`}>
+            <h1>{post.title}</h1>
           </Link>
           <span>
             <Calendar />{" "}
-            {post.first_publication_date && formatRelative(parseISO(post.first_publication_date), new Date(), {
-              locale: getDateFnsLocale(post.lang),
-            })}
+            {post.createdAt &&
+              formatRelative(parseISO(post.createdAt), new Date(), {
+                locale: getDateFnsLocale(locale),
+              })}
           </span>
-          <p>{post.data.description}</p>
+          <p>{post.description}</p>
         </article>
       ))}
     </div>
