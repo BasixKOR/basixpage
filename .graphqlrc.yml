@@ -1,4 +1,4 @@
 schema:
-  - "https://graphql.datocms.com/environments/development":
+  - "https://graphql.datocms.com/":
       headers:
         Authorization: Bearer f2859b89942f0d5c3a17301a930f72
