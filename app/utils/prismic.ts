@@ -1,5 +1,6 @@
 import * as prismic from "@prismicio/client";
 import * as prismicT from "@prismicio/types";
+import qs from "qs";
 
 // Fill in your repository name
 export const repositoryName = "basixpage";
@@ -22,14 +23,32 @@ export const client = prismic.createClient(endpoint, {
     },
     {
       type: "home",
-      path: "/:lang"
+      path: "/:lang",
     },
     {
       type: "metadata",
-      path: "/:lang/rss"
-    }
+      path: "/:lang/rss",
+    },
   ],
 });
+
+/**
+ * This parses the query string and cookies and returns a half-baked request object.
+ *
+ * @param request A fetch-compatible request object
+ * @returns Express-like request object for Prismic client to consume
+ */
+export function makePrismicRequest(
+  request: Request
+): Parameters<typeof client.enableAutoPreviewsFromReq>[0] {
+  const url = new URL(request.url);
+  return {
+    headers: {
+      cookie: request.headers.get("Cookie") ?? undefined,
+    },
+    query: qs.parse(url.search),
+  };
+}
 
 export type Post = prismicT.PrismicDocument<{
   title: prismicT.TitleField;

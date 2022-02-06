@@ -1,10 +1,11 @@
 import { PrismicRichText } from "@prismicio/react";
 import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { client, Post } from "~/utils/prismic";
+import { client, makePrismicRequest, Post } from "~/utils/prismic";
 import * as prismicH from "@prismicio/helpers";
 import { Giscus } from "@giscus/react";
 
-export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
+export const loader = async ({ params, request }: Parameters<LoaderFunction>[0]) => {
+  client.enableAutoPreviewsFromReq(makePrismicRequest(request));
   return await client.getByUID<Post>("post", params.id!, {
     lang: params.locale,
   });
