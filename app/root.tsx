@@ -21,8 +21,6 @@ import { RootQuery } from "./graphql/generated";
 import { renderMetaTags, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "./graphql/fragments";
 
-import "dotenv/config";
-
 export const meta: MetaFunction = () => {
   return { title: "Basixpage" };
 };

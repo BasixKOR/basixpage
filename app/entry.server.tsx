@@ -1,9 +1,10 @@
 import { renderToString } from "react-dom/server";
 import { createCookie, RemixServer } from "remix";
 import type { EntryContext } from "remix";
-import "dotenv/config";
 import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
+
+import "dotenv/config"
 
 let locales: string[];
 
