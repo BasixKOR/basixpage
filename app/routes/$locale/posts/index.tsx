@@ -1,35 +1,42 @@
-import { PrismicRichText } from "@prismicio/react";
-import { formatRelative, parseISO } from "date-fns";
-import { Calendar } from "react-feather";
-import { Link, LoaderFunction, useLoaderData } from "remix";
-import { getDateFnsLocale } from "~/utils/i18n";
-import { client, Post } from "~/utils/prismic";
+import { useQuerySubscription } from "react-datocms";
+import { LoaderFunction, useLoaderData, useOutletContext } from "remix";
+import invariant from "tiny-invariant";
+import ArticlesList, { fragment as articlesListFragment } from "~/components/ArticlesList";
+import { GetPostsQuery } from "~/graphql/generated";
+import { OutletData } from "~/root";
+import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 
-export const loader = async ({ params }: Parameters<LoaderFunction>[0]) => {
-  return await client.getAllByType<Post>("post", {
-    lang: params.locale,
+export const loader = async ({
+  params,
+  request,
+}: Parameters<LoaderFunction>[0]) => {
+  return datoQuerySubscription({
+    request,
+    query: gql`
+      query getPosts($locale: SiteLocale) {
+        allArticles(locale: $locale) {
+          ...articlesList
+        }
+      }
+      ${articlesListFragment}
+    `,
+    variables: {
+      locale: params.locale,
+    },
   });
 };
 
 export default function Posts() {
-  const data = useLoaderData<Awaited<ReturnType<typeof loader>>>();
+  debugger;
+  const query = useLoaderData<QueryListenerOptions<GetPostsQuery>>();
+  const { data } = useQuerySubscription(query);
+  const { locale } = useOutletContext<OutletData>();
+
+  invariant(data, "data is undefined");
 
   return (
     <div className="container">
-      {data.map((post) => (
-        <article key={post.uid}>
-          <Link to={post.url!}>
-            <PrismicRichText field={post.data.title} />
-          </Link>
-          <span>
-            <Calendar />{" "}
-            {formatRelative(parseISO(post.first_publication_date), new Date(), {
-              locale: getDateFnsLocale(post.lang),
-            })}
-          </span>
-          <p>{post.data.description}</p>
-        </article>
-      ))}
+      <ArticlesList data={data.allArticles} locale={locale} />
     </div>
   );
 }

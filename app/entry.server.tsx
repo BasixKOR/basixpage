@@ -1,10 +1,11 @@
 import { renderToString } from "react-dom/server";
 import { createCookie, RemixServer } from "remix";
 import type { EntryContext } from "remix";
-import { client } from "./utils/prismic";
-import { Repository } from "@prismicio/types";
+import "dotenv/config";
+import { gql, load } from "./utils/dato";
+import { GetLocalesQuery } from "./graphql/generated";
 
-let repository: Repository;
+let locales: string[];
 
 export default async function handleRequest(
   request: Request,
@@ -13,23 +14,31 @@ export default async function handleRequest(
   remixContext: EntryContext
 ) {
   const url = new URL(request.url);
-  const localeCookie = createCookie("basixpage_v1_locale", {
+  const localeCookie = createCookie("basixpage_v2_locale", {
     path: "/",
     httpOnly: true,
     sameSite: "strict",
   });
-  const isPreview = url.pathname.startsWith("/preview");
 
-  if (!repository) repository = await client.getRepository(); // caches the repository
-  if (
-    !repository.languages.some((l) => url.pathname.startsWith(`/${l.id}`)) &&
-    !isPreview
-  ) {
+  if (!locales) {
+    const data: GetLocalesQuery = await load({
+      query: gql`
+        query getLocales {
+          _site {
+            locales
+          }
+        }
+      `,
+    });
+    locales = data._site.locales;
+  }
+
+  if (!locales.some((l) => url.pathname.startsWith(`/${l}`))) {
     // checks if the URL doesn't contain a valid language
     const preferredLanguage = await localeCookie.parse(
       request.headers.get("Cookie")
     );
-    const language = preferredLanguage || repository.languages[0].id;
+    const language = preferredLanguage || "en";
     return new Response(`/${language}${url.pathname}`, {
       status: 302,
       headers: {
@@ -44,11 +53,10 @@ export default async function handleRequest(
   );
 
   responseHeaders.set("Content-Type", "text/html");
-  if (!isPreview)
-    responseHeaders.set(
-      "Set-Cookie",
-      await localeCookie.serialize(url.pathname.split("/")[1])
-    );
+  responseHeaders.set(
+    "Set-Cookie",
+    await localeCookie.serialize(url.pathname.split("/")[1])
+  );
 
   return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,

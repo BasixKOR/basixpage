@@ -1,0 +1,8 @@
+# Real code is generated via graphql-code-generator.
+# Please import it from ~/app/graphql/fragments.ts
+
+fragment metaTagsFragment on Tag {
+  attributes
+  content
+  tag
+}

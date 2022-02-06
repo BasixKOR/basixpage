@@ -1,51 +1,106 @@
-import { PrismicRichText } from "@prismicio/react";
-import { LoaderFunction, MetaFunction, useLoaderData } from "remix";
-import { client, makePrismicRequest, Post } from "~/utils/prismic";
-import * as prismicH from "@prismicio/helpers";
+import {
+  LoaderFunction,
+  MetaFunction,
+  useLoaderData,
+  useOutletContext,
+} from "remix";
 import { Giscus } from "@giscus/react";
+import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
+import type { ArticlesListRecord, GetPostQuery } from "~/graphql/generated";
+import { toRemixMeta, useQuerySubscription } from "react-datocms";
+import { MetaTagsFragment } from "~/graphql/fragments";
+import { OutletData } from "~/root";
+import { StructuredText } from "~/components/dato";
+import ArticlesList, {
+  fragment as articlesListFragment,
+} from "~/components/ArticlesList";
 
-export const loader = async ({ params, request }: Parameters<LoaderFunction>[0]) => {
-  client.enableAutoPreviewsFromReq(makePrismicRequest(request));
-  return await client.getByUID<Post>("post", params.id!, {
-    lang: params.locale,
+export const loader = async ({
+  params,
+  request,
+}: Parameters<LoaderFunction>[0]) => {
+  return datoQuerySubscription<GetPostQuery>({
+    request,
+    query: gql`
+      query getPost($locale: SiteLocale, $slug: String) {
+        article(filter: { slug: { eq: $slug } }, locale: $locale) {
+          title
+          description
+          content {
+            value
+            blocks {
+              __typename
+              ... on ArticlesListRecord {
+                id
+                articles {
+                  ...articlesList
+                }
+              }
+            }
+          }
+          comments
+          seo: _seoMetaTags {
+            ...metaTagsFragment
+          }
+        }
+      }
+      ${MetaTagsFragment}
+      ${articlesListFragment}
+    `,
+    variables: {
+      locale: params.locale,
+      slug: params.id,
+    },
   });
 };
 
-export const meta: MetaFunction = ({ data: post }) => {
-  return {
-    title: prismicH.asText(post.data.title)!,
-    "og:title": prismicH.asText(post.data.title)!,
-    "og:type": "article",
-    "og:url": post.url!,
-  };
-};
+export const meta: MetaFunction = ({
+  data,
+}: {
+  data: QueryListenerOptions<GetPostQuery>;
+}) => toRemixMeta(data.initialData?.article?.seo ?? null);
 
 export default function Post() {
-  const data = useLoaderData<Awaited<ReturnType<typeof loader>>>();
+  const query = useLoaderData<QueryListenerOptions<GetPostQuery>>();
+  const { data } = useQuerySubscription(query);
+  const { locale } = useOutletContext<OutletData>();
 
   return (
     <div className="container">
       <article>
         <header>
           <hgroup>
-            <PrismicRichText field={data.data.title} />
-            <h3>{data.data.description}</h3>
+            <h1>{data?.article?.title}</h1>
+            <h3>{data?.article?.description}</h3>
           </hgroup>
         </header>
-        <PrismicRichText field={data.data.content} />
+        <StructuredText
+          data={data?.article?.content}
+          locale={locale}
+          renderBlock={({ record }) => {
+            switch (record.__typename) {
+              case "ArticlesListRecord":
+                return <ArticlesList data={record.articles} locale={locale} />;
+              default:
+                return null;
+            }
+          }}
+        />
       </article>
-      <Giscus
-        repo="BasixKOR/basixpage"
-        repoId="R_kgDOGybrlw"
-        category="Comments"
-        category-id="DIC_kwDOGybrl84CBAPV"
-        mapping="pathname"
-        reactions-enabled="1"
-        emit-metadata="0"
-        input-position="top"
-        theme="preferred_color_scheme"
-        lang={data.lang.slice(0, 2)}
-      />
+      {data?.article?.comments && (
+        <Giscus
+          repo="BasixKOR/basixpage"
+          repoId="R_kgDOGybrlw"
+          category="Comments"
+          category-id="DIC_kwDOGybrl84CBAPV"
+          mapping="pathname"
+          reactions-enabled="1"
+          emit-metadata="0"
+          input-position="top"
+          theme="preferred_color_scheme"
+          lang={locale}
+        />
+      )}
     </div>
   );
 }

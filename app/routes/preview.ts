@@ -1,27 +1,16 @@
-import { createCookie, LoaderFunction, redirect } from "remix";
-import { client } from "~/utils/prismic";
-import qs from "qs";
-
-export const cookie = createCookie("basixpage_preview", {
-  path: "/",
-  httpOnly: true,
-  sameSite: "strict",
-  maxAge: 604_800,
-});
+import { LoaderFunction, redirect } from "remix";
+import { commitSession, getSession } from "~/utils/sessions";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const params = new URL(request.url).search;
-  const { token, documentId } = qs.parse(params, { ignoreQueryPrefix: true });
+  const session = await getSession(request.headers.get("Cookie"));
+  const previewEnabled = session.get("preview");
 
-  const redirectURL = await client.resolvePreviewURL({
-    defaultURL: "/",
-    previewToken: token?.toString() ?? "",
-    documentID: documentId?.toString() ?? "",
-  });
+  if (previewEnabled) session.unset("preview");
+  else session.set("preview", true);
 
-  return redirect(redirectURL, {
+  redirect("/", {
     headers: {
-      "Set-Cookie": await cookie.serialize(token),
+      "Set-Cookie": await commitSession(session),
     },
   });
 };
