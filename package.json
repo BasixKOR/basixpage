@@ -6,7 +6,7 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "postinstall": "remix setup node && metronome setup",
+    "postinstall": "npm run generate && remix setup node && metronome setup",
     "generate": "graphql-codegen"
   },
   "dependencies": {
