@@ -7,13 +7,10 @@ import {
 import { Giscus } from "@giscus/react";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import type { GetPostQuery } from "~/graphql/generated";
-import {
-  StructuredText,
-  toRemixMeta,
-  useQuerySubscription,
-} from "react-datocms";
+import { toRemixMeta, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "~/graphql/fragments";
 import { OutletData } from "~/root";
+import { StructuredText } from "~/components/dato";
 
 export const loader = async ({
   params,
@@ -43,8 +40,11 @@ export const loader = async ({
   });
 };
 
-export const meta: MetaFunction = ({ data }: { data: QueryListenerOptions<GetPostQuery> }) =>
-  toRemixMeta(data.initialData?.article?.seo ?? null);
+export const meta: MetaFunction = ({
+  data,
+}: {
+  data: QueryListenerOptions<GetPostQuery>;
+}) => toRemixMeta(data.initialData?.article?.seo ?? null);
 
 export default function Post() {
   const query = useLoaderData<QueryListenerOptions<GetPostQuery>>();
@@ -60,7 +60,7 @@ export default function Post() {
             <h3>{data?.article?.description}</h3>
           </hgroup>
         </header>
-        <StructuredText data={data?.article?.content?.value} />
+        <StructuredText data={data?.article?.content?.value} locale={locale} />
       </article>
       <Giscus
         repo="BasixKOR/basixpage"
