@@ -10,11 +10,11 @@ import { Link } from "remix";
 // Extract types from react-datocms.
 type RenderInlineRecordContext<R extends StructuredTextGraphQlResponseRecord> =
   Parameters<
-    Exclude<DatoStructuredTextPropTypes<R>["renderInlineRecord"], undefined>
+    Exclude<DatoStructuredTextPropTypes<R, R>["renderInlineRecord"], undefined>
   >[0];
 type RenderRecordLinkContext<R extends StructuredTextGraphQlResponseRecord> =
   Parameters<
-    Exclude<DatoStructuredTextPropTypes<R>["renderLinkToRecord"], undefined>
+    Exclude<DatoStructuredTextPropTypes<R, R>["renderLinkToRecord"], undefined>
   >[0];
 
 function renderInlineRecordFallback<
@@ -65,17 +65,18 @@ function fallback<P extends any[], R, A extends any[]>(
 }
 
 export interface StructuredTextPropTypes<
-  R extends StructuredTextGraphQlResponseRecord
-> extends DatoStructuredTextPropTypes<R> {
+  R1 extends StructuredTextGraphQlResponseRecord,
+  R2 extends StructuredTextGraphQlResponseRecord
+> extends DatoStructuredTextPropTypes<R1, R2> {
   locale: string;
 }
 
-export function StructuredText<R extends StructuredTextGraphQlResponseRecord>({
+export function StructuredText<R1 extends StructuredTextGraphQlResponseRecord, R2 extends StructuredTextGraphQlResponseRecord>({
   renderInlineRecord,
   renderLinkToRecord,
 	locale,
   ...props
-}: StructuredTextPropTypes<R>) {
+}: StructuredTextPropTypes<R1, R2>) {
   return (
     <DatoStructuredText
       renderInlineRecord={fallback(
