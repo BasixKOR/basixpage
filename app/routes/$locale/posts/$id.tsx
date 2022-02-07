@@ -14,6 +14,7 @@ import { StructuredText } from "~/components/dato";
 import ArticlesList, {
   fragment as articlesListFragment,
 } from "~/components/ArticlesList";
+import { fragment as imageFragment } from "~/components/Image";
 
 export const loader = async ({
   params,
@@ -44,6 +45,7 @@ export const loader = async ({
                   ...articlesList
                 }
               }
+              ...Image
             }
           }
           comments
@@ -54,6 +56,7 @@ export const loader = async ({
       }
       ${MetaTagsFragment}
       ${articlesListFragment}
+      ${imageFragment}
     `,
     variables: {
       locale: params.locale,
@@ -85,14 +88,6 @@ export default function Post() {
         <StructuredText
           data={data?.article?.content}
           locale={locale}
-          renderBlock={({ record }) => {
-            switch (record.__typename) {
-              case "ArticlesListRecord":
-                return <ArticlesList data={record.articles} locale={locale} />;
-              default:
-                return null;
-            }
-          }}
         />
       </article>
       {data?.article?.comments && (
