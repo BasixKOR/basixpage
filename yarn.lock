@@ -1696,7 +1696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@urql/core@npm:^2.4.1":
+"@urql/core@npm:>=2.3.6, @urql/core@npm:^2.4.1":
   version: 2.4.1
   resolution: "@urql/core@npm:2.4.1"
   dependencies:
@@ -1705,6 +1705,18 @@ __metadata:
   peerDependencies:
     graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
   checksum: e4858ae1062639c7a3c9357ddaa745e4757ae708a914630a81f393a8bdf6c37cf97f804f41bf2216686f09ddc8d529017e03cc572b445e6cff50406ca55eda55
+  languageName: node
+  linkType: hard
+
+"@urql/exchange-graphcache@npm:^4.3.6":
+  version: 4.3.6
+  resolution: "@urql/exchange-graphcache@npm:4.3.6"
+  dependencies:
+    "@urql/core": ">=2.3.6"
+    wonka: ^4.0.14
+  peerDependencies:
+    graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 861d52572d14d3a0a4c15068d6680b3b0ee4ec091ab5f16fe3b43e476cb14d628748bce3a2b1c81fdc46c407ef3a42883f9859e424da432ab57dbf34bd0ae7ec
   languageName: node
   linkType: hard
 
@@ -7389,6 +7401,7 @@ __metadata:
     "@types/react-dom": ^17.0.9
     "@types/react-syntax-highlighter": ^13.5.2
     "@urql/core": ^2.4.1
+    "@urql/exchange-graphcache": ^4.3.6
     date-fns: ^2.28.0
     datocms-structured-text-to-plain-text: ^2.0.0
     dedent: ^0.7.0
