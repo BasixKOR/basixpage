@@ -92,10 +92,17 @@ export default function App() {
         <Meta />
         <Links />
         {renderMetaTags(data?._site.faviconMetaTags!)}
+        <script
+          defer
+          data-domain="basix.tech"
+          src="https://plausible.io/js/plausible.js"
+        ></script>
       </head>
       <body>
         <GNB data={data!.gnb} locale={locale} />
-        {preview && <div className="container">You are looking at Preview!</div>}
+        {preview && (
+          <div className="container">You are looking at Preview!</div>
+        )}
         <Outlet context={{ locale }} />
         <ScrollRestoration />
         <Scripts />
