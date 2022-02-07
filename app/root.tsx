@@ -20,6 +20,7 @@ import { datoQuerySubscription, gql, QueryListenerOptions } from "./utils/dato";
 import { RootQuery } from "./graphql/generated";
 import { renderMetaTags, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "./graphql/fragments";
+import { getSession } from "./utils/sessions.server";
 
 export const meta: MetaFunction = () => {
   return { title: "Basixpage" };
@@ -45,6 +46,7 @@ export const links: LinksFunction = () => [
 interface LoaderData {
   query: QueryListenerOptions<RootQuery>;
   locale: string;
+  preview?: boolean;
 }
 
 export interface OutletData {
@@ -74,11 +76,12 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       },
     }),
     locale: params.locale,
+    preview: (await getSession(request.headers.get("Cookie"))).get("preview"),
   };
 };
 
 export default function App() {
-  const { query, locale } = useLoaderData<LoaderData>();
+  const { query, locale, preview } = useLoaderData<LoaderData>();
   const { data } = useQuerySubscription(query);
 
   return (
@@ -92,6 +95,7 @@ export default function App() {
       </head>
       <body>
         <GNB data={data!.gnb} locale={locale} />
+        {preview && <div className="container">You are looking at Preview!</div>}
         <Outlet context={{ locale }} />
         <ScrollRestoration />
         <Scripts />
