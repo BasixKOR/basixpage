@@ -6,6 +6,8 @@ config:
   defaultScalarType: unknown
   useTypeImports: true
   avoidOptionals: true
+  namingConvention:
+    enumValues: change-case-all#upperCaseFirst
   scalars:
     DateTime: string
     FloatType: number
