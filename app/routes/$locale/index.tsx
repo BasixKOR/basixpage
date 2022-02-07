@@ -5,7 +5,8 @@ import ArticlesList from "~/components/ArticlesList";
 import { StructuredText } from "~/components/dato";
 import { HomepageQuery } from "~/graphql/generated";
 import { OutletData } from "~/root";
-import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
+import { datoQuerySubscription, QueryListenerOptions } from "~/utils/dato";
+import { gql } from "@urql/core";
 import { fragment as articlesListFragment } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
 

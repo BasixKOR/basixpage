@@ -1,11 +1,13 @@
 import { renderToPipeableStream } from "react-dom/server";
 import { createCookie, RemixServer } from "remix";
 import type { EntryContext } from "remix";
-import { gql, load } from "./utils/dato";
+import { load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
 import { PassThrough } from "stream";
+import { gql } from "@urql/core";
 
 import "dotenv/config";
+import invariant from "tiny-invariant";
 
 let locales: string[];
 
@@ -23,7 +25,7 @@ export default async function handleRequest(
   });
 
   if (!locales) {
-    const data: GetLocalesQuery = await load({
+    const { data } = await load<GetLocalesQuery>({
       query: gql`
         query getLocales {
           _site {
@@ -32,6 +34,7 @@ export default async function handleRequest(
         }
       `,
     });
+    invariant(data, "data is undefined");
     locales = data._site.locales;
   }
 

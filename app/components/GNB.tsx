@@ -2,7 +2,7 @@ import { Globe } from "react-feather";
 import { Link } from "remix";
 import invariant from "tiny-invariant";
 import { GnbFragmentFragment } from "~/graphql/generated";
-import { gql } from "~/utils/dato";
+import { gql } from "@urql/core";
 
 interface GNBProps {
   data: GnbFragmentFragment | null;

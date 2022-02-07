@@ -1,6 +1,7 @@
 import { Feed } from "feed";
 import { FeedQuery } from "~/graphql/generated";
-import { gql, load } from "./dato";
+import { load } from "./dato";
+import { gql } from "@urql/core";
 import { render } from "datocms-structured-text-to-plain-text";
 
 export async function getFeed(url: URL, language: string): Promise<Feed> {

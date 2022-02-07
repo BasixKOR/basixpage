@@ -32,4 +32,4 @@ generates:
       - typescript-document-nodes
     config:
       importOperationTypesFrom: ./generated
-      gqlImport: ~/utils/dato#gql
+      gqlImport: "@urql/core#gql"
