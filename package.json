@@ -4,8 +4,7 @@
   "description": "",
   "license": "",
   "scripts": {
-    "prebuild": "metronome setup && npm run generate",
-    "build": "remix build",
+    "build": "metronome setup && yarn generate && remix build",
     "dev": "remix dev",
     "postinstall": "remix setup node",
     "generate": "graphql-codegen"
@@ -46,5 +45,6 @@
   "engines": {
     "node": ">=14"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "packageManager": "yarn@3.1.1"
 }

@@ -10,3 +10,12 @@ api/_build
 .env*
 
 app/graphql
+
+# Yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
