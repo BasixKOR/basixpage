@@ -9,9 +9,12 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useMatches,
 } from "remix";
 import type { MetaFunction } from "remix";
 
+import pico from "@picocss/pico/css/pico.min.css";
+import pretendard from "pretendard/dist/web/static/pretendard-subset.css";
 import css from "./theme.css";
 import logo from "~/assets/basixlab.svg";
 
@@ -29,8 +32,11 @@ export const meta: MetaFunction = () => {
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
-    crossOrigin: "anonymous",
-    href: "https://unpkg.com/@picocss/pico@1.4.4/css/pico.min.css",
+    href: pico,
+  },
+  {
+    rel: "stylesheet",
+    href: pretendard,
   },
   {
     rel: "stylesheet",
@@ -45,7 +51,6 @@ export const links: LinksFunction = () => [
 
 interface LoaderData {
   query: QueryListenerOptions<RootQuery>;
-  locale: string;
   preview?: boolean;
 }
 
@@ -75,14 +80,14 @@ export const loader: LoaderFunction = async ({ params, request }) => {
         locale: params.locale,
       },
     }),
-    locale: params.locale,
     preview: (await getSession(request.headers.get("Cookie"))).get("preview"),
   };
 };
 
 export default function App() {
-  const { query, locale, preview } = useLoaderData<LoaderData>();
+  const { query, preview } = useLoaderData<LoaderData>();
   const { data } = useQuerySubscription(query);
+  const [{ params: { locale } }] = useMatches();
 
   return (
     <html lang="en">
@@ -99,7 +104,7 @@ export default function App() {
         ></script>
       </head>
       <body>
-        <GNB data={data!.gnb} locale={locale} />
+        <GNB data={data!.gnb} locale={locale!} />
         {preview && (
           <div className="container">You are looking at Preview!</div>
         )}
