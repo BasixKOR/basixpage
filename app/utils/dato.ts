@@ -1,7 +1,7 @@
 import { OperationResult, TypedDocumentNode } from "@urql/core";
 import { DocumentNode, print } from "graphql";
 import type { QueryListenerOptions as DatoQueryListenerOptions } from "react-datocms";
-import { defaultClient, ENDPOINT, getClient } from "./graphql";
+import { defaultClient, ENDPOINT, getClient } from "./graphql.server";
 import { getSession } from "./sessions.server";
 
 interface LoadOptions<T, V extends object = Record<string, any>> {

@@ -25,7 +25,7 @@ export default async function handleRequest(
   });
 
   if (!locales) {
-    const { data } = await load<GetLocalesQuery>({
+    const { data, error } = await load<GetLocalesQuery>({
       query: gql`
         query getLocales {
           _site {
@@ -34,6 +34,7 @@ export default async function handleRequest(
         }
       `,
     });
+    if (error) throw error;
     invariant(data, "data is undefined");
     locales = data._site.locales;
   }
