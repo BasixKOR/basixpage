@@ -1,5 +1,5 @@
-import type { MetaFunction } from "@remix-run/node";
-import { LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/cloudflare";
+import { LinksFunction, LoaderFunction } from "@remix-run/cloudflare";
 
 import {
   Links,
@@ -51,16 +51,18 @@ export const links: LinksFunction = () => [
 interface LoaderData {
   query: QueryListenerOptions<RootQuery>;
   preview?: boolean;
+  env: any;
 }
 
 export interface OutletData {
   locale: string;
 }
 
-export const loader: LoaderFunction = async ({ params, request }) => {
+export const loader: LoaderFunction = async ({ params, request, context: { env } }) => {
   return {
     query: await datoQuerySubscription({
       request,
+      env,
       query: gql`
         query Root($locale: SiteLocale) {
           _site {
@@ -80,11 +82,12 @@ export const loader: LoaderFunction = async ({ params, request }) => {
       },
     }),
     preview: (await getSession(request.headers.get("Cookie"))).get("preview"),
+    env,
   };
 };
 
 export default function App() {
-  const { query, preview } = useLoaderData<LoaderData>();
+  const { query, preview, env } = useLoaderData<LoaderData>();
   const { data } = useQuerySubscription(query);
   const [
     {
@@ -114,7 +117,7 @@ export default function App() {
         <Outlet context={{ locale }} />
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );

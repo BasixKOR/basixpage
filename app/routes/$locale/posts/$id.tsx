@@ -1,4 +1,4 @@
-import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { LoaderFunction, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { Giscus } from "@giscus/react";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
@@ -14,9 +14,11 @@ import { fragment as codeBlockFragment } from "~/components/CodeBlock";
 export const loader = async ({
   params,
   request,
+  context: { env },
 }: Parameters<LoaderFunction>[0]) => {
   return datoQuerySubscription<GetPostQuery>({
     request,
+    env,
     query: gql`
       query getPost($locale: SiteLocale, $slug: String) {
         article(filter: { slug: { eq: $slug } }, locale: $locale) {
