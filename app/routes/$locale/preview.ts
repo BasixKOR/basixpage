@@ -8,7 +8,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (previewEnabled) session.unset("preview");
   else session.set("preview", true);
 
-  redirect("/", {
+  return redirect("/", {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
