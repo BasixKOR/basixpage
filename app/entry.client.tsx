@@ -1,4 +1,6 @@
-import { hydrate } from "react-dom";
+import { createRoot } from "react-dom";
 import { RemixBrowser } from "remix";
 
-hydrate(<RemixBrowser />, document);
+const root = createRoot(document, { hydrate: true });
+
+root.render(<RemixBrowser />);
