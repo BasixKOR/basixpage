@@ -1317,7 +1317,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/vercel@npm:^1.1.3":
+"@remix-run/vercel@npm:1.1.3":
   version: 1.1.3
   resolution: "@remix-run/vercel@npm:1.1.3"
   dependencies:
@@ -1326,6 +1326,18 @@ __metadata:
   peerDependencies:
     "@vercel/node": ^1.8.3
   checksum: 3048505a1d9f41320244b41bd4cc647b748084c6294129ea96e43bad907db82fc25f67ef8949fc0b49e2f789b81edf53e839b7a8366cf8a6c3efd1b74b57a332
+  languageName: node
+  linkType: hard
+
+"@remix-run/vercel@patch:@remix-run/vercel@npm:1.1.3#.yarn/patches/@remix-run-vercel-npm-1.1.3-3d4b846e7d::locator=remix-app-template%40workspace%3A.":
+  version: 1.1.3
+  resolution: "@remix-run/vercel@patch:@remix-run/vercel@npm%3A1.1.3#.yarn/patches/@remix-run-vercel-npm-1.1.3-3d4b846e7d::version=1.1.3&hash=26c3c5&locator=remix-app-template%40workspace%3A."
+  dependencies:
+    "@remix-run/node": 1.1.3
+    "@remix-run/server-runtime": 1.1.3
+  peerDependencies:
+    "@vercel/node": ^1.8.3
+  checksum: 7cdaf7cd6928b993a6262e611e7d48f4f2f37abbfb7009bd2fc1fb6c9d6b9ef0d743c00dc3a9241fed1b116a2dad36ff8c9527b734de501cf23c60634272bf6b
   languageName: node
   linkType: hard
 
@@ -7166,7 +7178,7 @@ __metadata:
     "@remix-run/dev": ^1.1.3
     "@remix-run/react": ^1.1.3
     "@remix-run/serve": ^1.1.3
-    "@remix-run/vercel": ^1.1.3
+    "@remix-run/vercel": "patch:@remix-run/vercel@npm:1.1.3#.yarn/patches/@remix-run-vercel-npm-1.1.3-3d4b846e7d"
     "@types/dedent": ^0.7.0
     "@types/react": ^17.0.24
     "@types/react-dom": ^17.0.9

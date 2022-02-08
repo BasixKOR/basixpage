@@ -1,0 +1,21 @@
+diff --git a/server.js b/server.js
+index 1e7d8d188f5ae2ffb2cce09dba8ec3d6fa1b24d2..d1e7160e1c24dec6908dccd8e38b2bfb8b552e9f 100644
+--- a/server.js
++++ b/server.js
+@@ -104,12 +104,12 @@ function sendRemixResponse(res, response) {
+   res.writeHead(response.status, response.headers.raw());
+ 
+   if (Buffer.isBuffer(response.body)) {
+-    return res.end(response.body);
++    res.end(response.body);
+   } else if ((_response$body = response.body) !== null && _response$body !== void 0 && _response$body.pipe) {
+-    return res.end(response.body.pipe(res));
++    response.body.pipe(res);
++  } else {
++    res.end();
+   }
+-
+-  return res.end();
+ }
+ 
+ exports.createRemixHeaders = createRemixHeaders;
