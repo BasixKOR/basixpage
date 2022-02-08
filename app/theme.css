@@ -14,3 +14,7 @@ article > hr {
 li > p {
   margin-bottom: unset;
 }
+
+pre.code-block > * {
+  color: unset;
+}
