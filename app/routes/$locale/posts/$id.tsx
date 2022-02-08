@@ -15,6 +15,7 @@ import ArticlesList, {
   fragment as articlesListFragment,
 } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
+import { fragment as codeBlockFragment } from "~/components/CodeBlock";
 
 export const loader = async ({
   params,
@@ -46,6 +47,7 @@ export const loader = async ({
                 }
               }
               ...Image
+              ...codeBlock
             }
           }
           comments
@@ -57,6 +59,7 @@ export const loader = async ({
       ${MetaTagsFragment}
       ${articlesListFragment}
       ${imageFragment}
+      ${codeBlockFragment}
     `,
     variables: {
       locale: params.locale,
