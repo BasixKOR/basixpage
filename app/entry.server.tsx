@@ -1,10 +1,11 @@
-import { renderToString } from "react-dom/server";
+import { renderToPipeableStream } from "react-dom/server";
 import { createCookie, RemixServer } from "remix";
 import type { EntryContext } from "remix";
 import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
+import { PassThrough } from "stream";
 
-import "dotenv/config"
+import "dotenv/config";
 
 let locales: string[];
 
@@ -49,8 +50,19 @@ export default async function handleRequest(
     });
   }
 
-  const markup = renderToString(
-    <RemixServer context={remixContext} url={request.url} />
+  const stream = new PassThrough({ encoding: "utf-8" });
+
+  const { pipe, abort } = renderToPipeableStream(
+    <RemixServer context={remixContext} url={request.url} />,
+    {
+      onCompleteShell() {
+        pipe(stream);
+      },
+      onError(error) {
+        console.error(error);
+        abort();
+      },
+    }
   );
 
   responseHeaders.set("Content-Type", "text/html");
@@ -59,7 +71,8 @@ export default async function handleRequest(
     await localeCookie.serialize(url.pathname.split("/")[1])
   );
 
-  return new Response("<!DOCTYPE html>" + markup, {
+  // @ts-ignore It is fine.
+  return new Response(stream, {
     status: responseStatusCode,
     headers: responseHeaders,
   });

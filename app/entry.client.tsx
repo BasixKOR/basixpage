@@ -1,4 +1,7 @@
-import { hydrate } from "react-dom";
+import { hydrateRoot } from "react-dom";
 import { RemixBrowser } from "remix";
 
-hydrate(<RemixBrowser />, document);
+// Remove Apollo Devtool hooks.
+document.querySelectorAll("html>script[type=module]").forEach(v => v.remove());
+
+hydrateRoot(document, <RemixBrowser />);
