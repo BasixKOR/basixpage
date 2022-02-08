@@ -5,6 +5,7 @@ import {
 } from "react-datocms";
 import { Link } from "remix";
 import ArticlesList from "./ArticlesList";
+import CodeBlock from "./CodeBlock";
 import Image from "./Image";
 
 // React support utility.
@@ -43,18 +44,17 @@ function renderLinkToRecordFallback<
 >({ record, children }: RenderRecordLinkContext<R>, locale: string) {
   switch (record.__typename) {
     case "ArticleRecord":
-      return (
-        <Link to={`/${locale}/posts/${record.slug}`}>{children}</Link>
-      );
+      return <Link to={`/${locale}/posts/${record.slug}`}>{children}</Link>;
     default:
       throw new Error("Unknown record type");
   }
 }
 
 // TODO: Make this type-safe somehow.
-function renderBlockFallback<
-  R extends StructuredTextGraphQlResponseRecord
->({ record }: RenderBlockContext<R>, locale: string) {
+function renderBlockFallback<R extends StructuredTextGraphQlResponseRecord>(
+  { record }: RenderBlockContext<R>,
+  locale: string
+) {
   switch (record.__typename) {
     case "ArticlesListRecord":
       return (
@@ -67,6 +67,9 @@ function renderBlockFallback<
     case "ImageRecord":
       // @ts-expect-error
       return <Image data={record} />;
+    case "CodeBlockRecord":
+      // @ts-expect-error
+      return <CodeBlock {...record} />;
     default:
       throw new Error("Unknown block type");
   }
@@ -84,7 +87,7 @@ function renderBlockFallback<
 function fallback<P extends any[], R, A extends any[]>(
   fallible: ((...args: P) => R | undefined | null) | undefined,
   fallback: (...args: [...P, ...A]) => R,
-	additional: A
+  additional: A
 ) {
   return (...args: P) => {
     return fallible?.(...args) ?? fallback(...[...args, ...additional]);
@@ -98,11 +101,14 @@ export interface StructuredTextPropTypes<
   locale: string;
 }
 
-export function StructuredText<R1 extends StructuredTextGraphQlResponseRecord, R2 extends StructuredTextGraphQlResponseRecord>({
+export function StructuredText<
+  R1 extends StructuredTextGraphQlResponseRecord,
+  R2 extends StructuredTextGraphQlResponseRecord
+>({
   renderInlineRecord,
   renderLinkToRecord,
   renderBlock,
-	locale,
+  locale,
   ...props
 }: StructuredTextPropTypes<R1, R2>) {
   return (
@@ -110,18 +116,14 @@ export function StructuredText<R1 extends StructuredTextGraphQlResponseRecord, R
       renderInlineRecord={fallback(
         renderInlineRecord,
         renderInlineRecordFallback,
-				[locale]
+        [locale]
       )}
       renderLinkToRecord={fallback(
         renderLinkToRecord,
         renderLinkToRecordFallback,
-				[locale]
-      )}
-      renderBlock={fallback(
-        renderBlock,
-        renderBlockFallback,
         [locale]
       )}
+      renderBlock={fallback(renderBlock, renderBlockFallback, [locale])}
       {...props}
     />
   );
