@@ -62,15 +62,15 @@ export default function Index() {
             <StructuredText data={data.homePage.note} locale={locale} />
           </header>
         )}
-        {data.homePage?.content.map((item) => {
-          switch (item.__typename) {
-            case "ArticlesListRecord":
-              return <ArticlesList data={item.articles} locale={locale} />;
-            default:
-              return <span>{item.__typename}</span>;
-          }
-        })}
       </article>
+      {data.homePage?.content.map((item) => {
+        switch (item.__typename) {
+          case "ArticlesListRecord":
+            return <ArticlesList data={item.articles} locale={locale} />;
+          default:
+            return <span>{item.__typename}</span>;
+        }
+      })}
     </div>
   );
 }
