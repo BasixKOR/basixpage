@@ -10,6 +10,7 @@
     "generate": "graphql-codegen"
   },
   "dependencies": {
+    "@basix-forks/react-static-tweets": "0.0.0-experimental-fbaa3f5",
     "@giscus/react": "^1.1.1",
     "@picocss/pico": "^1.4.4",
     "@remix-run/react": "^1.1.3",

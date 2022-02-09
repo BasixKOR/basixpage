@@ -635,6 +635,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@basix-forks/react-static-tweets@npm:0.0.0-experimental-fbaa3f5":
+  version: 0.0.0-experimental-fbaa3f5
+  resolution: "@basix-forks/react-static-tweets@npm:0.0.0-experimental-fbaa3f5"
+  dependencies:
+    classnames: ^2.2.6
+    swr: ^1.0.0-beta.5
+  peerDependencies:
+    date-fns: ">=2"
+    next: ^10.0.6
+    react: ">=16"
+    react-dom: ">=16"
+  peerDependenciesMeta:
+    next:
+      optional: true
+  checksum: 9da078996c11482400f5ee379a48ffbfada0239b5e2a73810b820a536b86a8d0d11a3e2a11c695d6ebbee2cc83121769e829211566fae03d5ef98abb17e850c7
+  languageName: node
+  linkType: hard
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2":
   version: 3.0.2
   resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
@@ -2505,6 +2523,13 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: c57cf9dd0791e2f18a5ee9c1a299ae6e801ff58fee96dc8bfd0dcb4738a6ce58dd252a3605b1c93c6418fe4f9d5093b28ffbf4d66648cb2a9c67eaef9679be2f
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.2.6":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
   languageName: node
   linkType: hard
 
@@ -7353,6 +7378,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "remix-app-template@workspace:."
   dependencies:
+    "@basix-forks/react-static-tweets": 0.0.0-experimental-fbaa3f5
     "@giscus/react": ^1.1.1
     "@graphql-codegen/cli": ^2.5.0
     "@graphql-codegen/typescript": ^2.4.3
@@ -8134,6 +8160,15 @@ __metadata:
   dependencies:
     tslib: ^2.0.3
   checksum: 6e21c9e1b3cd5735eb2af679a99ec3efc78a14e3d4d5e3fd594e254b91cfd37185b3d1c6e41b22f53a2cdf5d1b963ce30c0fe8b78337e3fd43d0137084670a5f
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.0.0-beta.5":
+  version: 1.2.1
+  resolution: "swr@npm:1.2.1"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: 87f6093f468dc76f31d7dc7bdd8f925cd9d8a8e8062eecaf6e17ba4ffeb4d5aebe01e73e0cf30ef0e913121f630c33e393eeff8aab6e5479cb3291cd7f2d7dca
   languageName: node
   linkType: hard
 
