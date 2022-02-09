@@ -87,7 +87,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 export default function App() {
   const { query, preview } = useLoaderData<LoaderData>();
   const { data } = useQuerySubscription(query);
-  const [{ params: { locale } }] = useMatches();
+  const [
+    {
+      params: { locale },
+    },
+  ] = useMatches();
 
   return (
     <html lang="en">
@@ -116,3 +120,5 @@ export default function App() {
     </html>
   );
 }
+
+export { ErrorBoundary } from "remix-crash";
