@@ -19,7 +19,8 @@ import css from "./theme.css";
 import logo from "~/assets/basixlab.svg";
 
 import GNB, { fragment as gnbFragment } from "./components/GNB";
-import { datoQuerySubscription, gql, QueryListenerOptions } from "./utils/dato";
+import { datoQuerySubscription, QueryListenerOptions } from "./utils/dato";
+import { gql } from "@urql/core";
 import { RootQuery } from "./graphql/generated";
 import { renderMetaTags, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "./graphql/fragments";

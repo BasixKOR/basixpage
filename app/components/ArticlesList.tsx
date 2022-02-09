@@ -3,7 +3,7 @@ import { Link } from "remix";
 import type { ArticleItemFragment } from "~/graphql/generated";
 import { formatRelative, parseISO } from "date-fns";
 import { getDateFnsLocale } from "~/utils/i18n";
-import { gql } from "~/utils/dato";
+import { gql } from "@urql/core";
 
 export const itemFragment = gql`
   fragment articleItem on ArticleRecord {

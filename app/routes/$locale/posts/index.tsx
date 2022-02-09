@@ -4,7 +4,8 @@ import invariant from "tiny-invariant";
 import ArticlesList, { itemFragment as articleFragment } from "~/components/ArticlesList";
 import { GetPostsQuery } from "~/graphql/generated";
 import { OutletData } from "~/root";
-import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
+import { datoQuerySubscription, QueryListenerOptions } from "~/utils/dato";
+import { gql } from "@urql/core";
 
 export const loader = async ({
   params,

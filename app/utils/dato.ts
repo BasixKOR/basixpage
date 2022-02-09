@@ -1,79 +1,81 @@
-import dedent from "dedent";
+import { OperationResult, TypedDocumentNode } from "@urql/core";
+import { DocumentNode, print } from "graphql";
 import type { QueryListenerOptions as DatoQueryListenerOptions } from "react-datocms";
+import { defaultClient, ENDPOINT, getClient } from "./graphql.server";
 import { getSession } from "./sessions.server";
 
-interface LoadOptions {
-  query: string;
-  variables?: { [key: string]: any };
+interface LoadOptions<T, V extends object = Record<string, any>> {
+  query: string | DocumentNode | TypedDocumentNode<T, V>;
+  variables?: V;
   preview?: boolean;
 }
 
-export async function load<T>({
+export async function load<T, V extends object = Record<string, any>>({
   query,
   variables,
   preview,
-}: LoadOptions): Promise<T> {
-  let endpoint = "https://graphql.datocms.com";
+}: LoadOptions<T, V>): Promise<OperationResult<T, {}>> {
+  let endpoint = ENDPOINT;
 
   if (process.env.DATOCMS_ENVIRONMENT)
     endpoint += `/environments/${process.env.DATOCMS_ENVIRONMENT}`;
   if (preview) endpoint += `/preview`;
 
-  const headers = new Headers({
-    Authorization: `Bearer ${process.env.DATOCMS_READONLY_TOKEN}`,
-  });
+  const client = endpoint === ENDPOINT ? defaultClient : getClient(endpoint);
 
-  const res = await fetch(endpoint, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      query,
-      variables,
-    }),
-  });
-
-  const json = await res.json();
-
-  if (!res.ok || json.errors) {
-    console.error("Ouch! The query has some errors!", JSON.stringify(json.errors, null, 2));
-    throw new Error(json.errors ?? json);
-  }
-
-  return json.data;
+  return await client.query<T, V>(query, variables).toPromise();
 }
 
 function getEnvironment() {
   if (process.env.DATOCMS_ENVIRONMENT) return process.env.DATOCMS_ENVIRONMENT;
   else if (process.env.NODE_ENV === "development") return "development";
-  else if (process.env.VERCEL_GIT_COMMIT_REF?.startsWith("env/")) return process.env.VERCEL_GIT_COMMIT_REF.slice(4);
+  else if (process.env.VERCEL_GIT_COMMIT_REF?.startsWith("env/"))
+    return process.env.VERCEL_GIT_COMMIT_REF.slice(4);
 }
 
-interface QueryOptions extends LoadOptions {
+interface QueryOptions<T, V extends object> extends LoadOptions<T, V> {
   request: Request;
 }
 
-export async function datoQuerySubscription<T = any>({
+export async function datoQuerySubscription<
+  T = any,
+  V extends object = Record<string, any>
+>({
   request,
+  query,
   ...gqlRequest
-}: QueryOptions): Promise<DatoQueryListenerOptions<T, Record<string, any>>> {
+}: QueryOptions<T, V>): Promise<
+  DatoQueryListenerOptions<T, V>
+> {
   const session = await getSession(request.headers.get("Cookie"));
   const previewEnabled = session.get("preview");
+
+  const { data, error } = await load<T>({
+    ...gqlRequest,
+    query,
+    preview: Boolean(previewEnabled),
+  });
+
+  const stringQuery = typeof query !== 'string' ? print(query) : query;
+
+  if (error) throw error;
 
   return previewEnabled
     ? {
         ...gqlRequest,
+        query: stringQuery,
         preview: true,
-        initialData: await load<T>({ ...gqlRequest, preview: true }),
+        initialData: data,
         token: process.env.DATOCMS_READONLY_TOKEN!,
         environment: getEnvironment(),
       }
     : {
         enabled: false,
-        initialData: await load<T>(gqlRequest),
+        initialData: data,
       };
 }
 
-export type QueryListenerOptions<T> = DatoQueryListenerOptions<T, Record<string, any>>;
-
-// Trick for better editor support.
-export const gql = dedent;
+export type QueryListenerOptions<T> = DatoQueryListenerOptions<
+  T,
+  Record<string, any>
+>;

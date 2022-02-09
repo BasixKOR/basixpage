@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 import { ImageFragment } from "~/graphql/generated";
-import { gql } from "~/utils/dato";
+import { gql } from "@urql/core";
 
 export const fragment = gql`
   fragment Image on ImageRecord {
