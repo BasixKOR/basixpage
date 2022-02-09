@@ -27,7 +27,6 @@ export const loader = async ({
 };
 
 export default function Posts() {
-  debugger;
   const query = useLoaderData<QueryListenerOptions<GetPostsQuery>>();
   const { data } = useQuerySubscription(query);
   const { locale } = useOutletContext<OutletData>();
