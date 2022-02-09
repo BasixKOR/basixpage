@@ -5,6 +5,16 @@ import { formatRelative, parseISO } from "date-fns";
 import { getDateFnsLocale } from "~/utils/i18n";
 import { gql } from "~/utils/dato";
 
+export const itemFragment = gql`
+  fragment articleItem on ArticleRecord {
+    createdAt
+    id
+    slug
+    title
+    description
+  }
+`;
+
 export const fragment = gql`
   fragment articlesListBlock on ArticlesListRecord {
     __typename
@@ -13,13 +23,7 @@ export const fragment = gql`
       ...articleItem
     }
   }
-  fragment articleItem on ArticleRecord {
-    createdAt
-    id
-    slug
-    title
-    description
-  }
+  ${itemFragment}
 `;
 
 interface ArticlesListProps {

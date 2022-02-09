@@ -1,7 +1,7 @@
 import { useQuerySubscription } from "react-datocms";
 import { LoaderFunction, useLoaderData, useOutletContext } from "remix";
 import invariant from "tiny-invariant";
-import ArticlesList, { fragment as articlesListFragment } from "~/components/ArticlesList";
+import ArticlesList, { itemFragment as articleFragment } from "~/components/ArticlesList";
 import { GetPostsQuery } from "~/graphql/generated";
 import { OutletData } from "~/root";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
@@ -18,7 +18,7 @@ export const loader = async ({
           ...articleItem
         }
       }
-      ${articlesListFragment}
+      ${articleFragment}
     `,
     variables: {
       locale: params.locale,

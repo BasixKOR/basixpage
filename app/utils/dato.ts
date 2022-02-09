@@ -36,7 +36,7 @@ export async function load<T>({
 
   if (!res.ok || json.errors) {
     console.error("Ouch! The query has some errors!", JSON.stringify(json.errors, null, 2));
-    throw json.errors ?? json;
+    throw new Error(json.errors ?? json);
   }
 
   return json.data;
