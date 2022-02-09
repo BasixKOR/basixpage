@@ -1,6 +1,5 @@
 import { useQuerySubscription } from "react-datocms";
-import { LoaderFunction } from "@remix-run/node";
-import { useLoaderData, useOutletContext } from "@remix-run/react";
+import { LinksFunction, LoaderFunction, useLoaderData, useOutletContext } from "remix";
 import invariant from "tiny-invariant";
 import ArticlesList from "~/components/ArticlesList";
 import { StructuredText } from "~/components/dato";
@@ -9,6 +8,13 @@ import { OutletData } from "~/root";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import { fragment as articlesListFragment } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
+import Tweet from "~/components/Tweet";
+import tweetCss from "@basix-forks/react-static-tweets/styles.css";
+
+export const links: LinksFunction = () => [{
+  rel: "stylesheet",
+  href: tweetCss
+}]
 
 export const loader: LoaderFunction = ({ params, request }) => {
   return datoQuerySubscription({
@@ -72,6 +78,7 @@ export default function Index() {
             return <span>{item.__typename}</span>;
         }
       })}
+      <Tweet tweetId="1488330542047440896" />
     </div>
   );
 }
