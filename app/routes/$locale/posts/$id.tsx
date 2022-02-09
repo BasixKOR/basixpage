@@ -40,12 +40,7 @@ export const loader = async ({
             }
             blocks {
               __typename
-              ... on ArticlesListRecord {
-                id
-                articles {
-                  ...articlesList
-                }
-              }
+              ...articlesListBlock
               ...Image
               ...codeBlock
             }

@@ -4,6 +4,7 @@ import {
   StructuredTextGraphQlResponseRecord,
 } from "react-datocms";
 import { Link } from "remix";
+import { ArticlesListBlockFragment, CodeBlockFragment, ImageFragment } from "~/graphql/generated";
 import ArticlesList from "./ArticlesList";
 import CodeBlock from "./CodeBlock";
 import Image from "./Image";
@@ -50,8 +51,8 @@ function renderLinkToRecordFallback<
   }
 }
 
-// TODO: Make this type-safe somehow.
-function renderBlockFallback<R extends StructuredTextGraphQlResponseRecord>(
+type FallbackBlock = ArticlesListBlockFragment | ImageFragment | CodeBlockFragment;
+function renderBlockFallback<R extends FallbackBlock>(
   { record }: RenderBlockContext<R>,
   locale: string
 ) {
@@ -59,16 +60,13 @@ function renderBlockFallback<R extends StructuredTextGraphQlResponseRecord>(
     case "ArticlesListRecord":
       return (
         <ArticlesList
-          // @ts-expect-error
           data={record.articles}
           locale={locale}
         />
       );
     case "ImageRecord":
-      // @ts-expect-error
       return <Image data={record} />;
     case "CodeBlockRecord":
-      // @ts-expect-error
       return <CodeBlock {...record} />;
     default:
       throw new Error("Unknown block type");
@@ -102,7 +100,7 @@ export interface StructuredTextPropTypes<
 }
 
 export function StructuredText<
-  R1 extends StructuredTextGraphQlResponseRecord,
+  R1 extends FallbackBlock,
   R2 extends StructuredTextGraphQlResponseRecord
 >({
   renderInlineRecord,

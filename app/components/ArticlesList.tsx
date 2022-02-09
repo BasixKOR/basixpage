@@ -1,12 +1,19 @@
 import { Calendar } from "react-feather";
 import { Link } from "remix";
-import type { ArticleRecord, ArticlesListFragment } from "~/graphql/generated";
+import type { ArticleItemFragment } from "~/graphql/generated";
 import { formatRelative, parseISO } from "date-fns";
 import { getDateFnsLocale } from "~/utils/i18n";
 import { gql } from "~/utils/dato";
 
 export const fragment = gql`
-  fragment articlesList on ArticleRecord {
+  fragment articlesListBlock on ArticlesListRecord {
+    __typename
+    id
+    articles {
+      ...articleItem
+    }
+  }
+  fragment articleItem on ArticleRecord {
     createdAt
     id
     slug
@@ -16,7 +23,7 @@ export const fragment = gql`
 `;
 
 interface ArticlesListProps {
-  data: ArticlesListFragment[];
+  data: ArticleItemFragment[];
   locale: string;
 }
 
@@ -24,7 +31,7 @@ export default function ArticlesList({ data, locale }: ArticlesListProps) {
   return (
     <>
       {data.map((post) => (
-        <article key={post.slug}>
+        <article key={post.id}>
           <Link to={`/${locale}/posts/${post.slug}`}>
             <h1>{post.title}</h1>
           </Link>

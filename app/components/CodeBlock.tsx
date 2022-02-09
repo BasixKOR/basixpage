@@ -6,6 +6,7 @@ import { monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export const fragment = gql`
 	fragment codeBlock on CodeBlockRecord {
+		__typename
 		id
 		language
 		code

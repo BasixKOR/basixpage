@@ -4,6 +4,7 @@ import { gql } from "~/utils/dato";
 
 export const fragment = gql`
   fragment Image on ImageRecord {
+    __typename
     id
     image {
       responsiveImage {

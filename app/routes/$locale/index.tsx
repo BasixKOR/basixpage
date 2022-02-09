@@ -33,11 +33,7 @@ export const loader: LoaderFunction = ({ params, request }) => {
           }
           content {
             __typename
-            ... on ArticlesListRecord {
-              articles {
-                ...articlesList
-              }
-            }
+            ...articlesListBlock
           }
         }
       }

@@ -15,7 +15,7 @@ export const loader = async ({
     query: gql`
       query getPosts($locale: SiteLocale) {
         allArticles(locale: $locale) {
-          ...articlesList
+          ...articleItem
         }
       }
       ${articlesListFragment}
