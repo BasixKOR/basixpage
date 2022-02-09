@@ -1185,6 +1185,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@basix-forks/react-static-tweets@npm:0.0.0-experimental-fbaa3f5":
+  version: 0.0.0-experimental-fbaa3f5
+  resolution: "@basix-forks/react-static-tweets@npm:0.0.0-experimental-fbaa3f5"
+  dependencies:
+    classnames: "npm:^2.2.6"
+    swr: "npm:^1.0.0-beta.5"
+  peerDependencies:
+    date-fns: ">=2"
+    next: ^10.0.6
+    react: ">=16"
+    react-dom: ">=16"
+  peerDependenciesMeta:
+    next:
+      optional: true
+  checksum: 7150bd142d0036517987d8b782bf80e9c3eff1d7d5d5248f4ffae7eee7e85eb745185024781c4f9dfd66a1ec0138c8a382dc94b99d2dcb6691a0ca8c0f298699
+  languageName: node
+  linkType: hard
+
 "@emotion/hash@npm:^0.9.0":
   version: 0.9.1
   resolution: "@emotion/hash@npm:0.9.1"
@@ -4354,6 +4372,13 @@ __metadata:
   version: 2.0.0
   resolution: "chownr@npm:2.0.0"
   checksum: 594754e1303672171cc04e50f6c398ae16128eb134a88f801bf5354fd96f205320f23536a045d9abd8b51024a149696e51231565891d4efdab8846021ecf88e6
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.2.6":
+  version: 2.3.1
+  resolution: "classnames@npm:2.3.1"
+  checksum: e3b832219042802464e648c41c2e8be96c2c64d2522cfa22fbb5ec088418406c61ab351a682c077c07f691c8b00c9f0ee7939b20fabc6c23da69063252a4ab89
   languageName: node
   linkType: hard
 
@@ -10400,6 +10425,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "remix-app-template@workspace:."
   dependencies:
+    "@basix-forks/react-static-tweets": "npm:0.0.0-experimental-fbaa3f5"
     "@giscus/react": "npm:^2.4.0"
     "@graphql-codegen/cli": "npm:^5.0.0"
     "@graphql-codegen/typescript": "npm:^4.0.1"
@@ -11378,6 +11404,15 @@ __metadata:
   dependencies:
     tslib: "npm:^2.0.3"
   checksum: 6a47c1926e06395ead750905e103be388aeec8c9697f20b14bc3e1e86fcb4fc78e5033197afe6cc8bbed80f0a4ee1f184b0fa22eec7f4a767bdfd278683d52eb
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.0.0-beta.5":
+  version: 1.2.1
+  resolution: "swr@npm:1.2.1"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: c0b5a1bc2262707ed4199ae6b3d2b7d756a2c71d32b7d26912d9162693ef9301b0540b593874fbc9848c125b705a2e4546437c03781a6eb67cc2c3221ee96909
   languageName: node
   linkType: hard
 

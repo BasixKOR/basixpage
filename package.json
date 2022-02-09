@@ -11,6 +11,7 @@
     "lint": "eslint app"
   },
   "dependencies": {
+    "@basix-forks/react-static-tweets": "0.0.0-experimental-fbaa3f5",
     "@giscus/react": "^2.4.0",
     "@picocss/pico": "^1.5.10",
     "@remix-run/node": "^2.4.0",
