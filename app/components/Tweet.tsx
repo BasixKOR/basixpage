@@ -16,7 +16,9 @@ interface TweetProps {
 }
 
 export default function Tweet({ tweetId }: TweetProps) {
-  const ref = useCallback((template: HTMLTemplateElement) => {
+  const ref = useCallback((template?: HTMLTemplateElement) => {
+    if (!template) return;
+
     const mode: any = template.getAttribute("shadowroot");
     if (!template || mode == null) return;
 
@@ -29,8 +31,8 @@ export default function Tweet({ tweetId }: TweetProps) {
       <div>
         <template shadowroot="open" ref={ref}>
           <link rel="stylesheet" href={tweetCss} />
-          <TwitterContextProvider value={{ swrOptions: { suspense: true } }}>
-            <TweetComponent id={tweetId} />
+          <TwitterContextProvider value={{ swrOptions: { suspense: true, initialData: '' } }}>
+            <TweetComponent id={tweetId} ast={null} />
           </TwitterContextProvider>
         </template>
       </div>
