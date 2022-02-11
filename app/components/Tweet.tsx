@@ -3,8 +3,7 @@ import {
   Tweet as TweetComponent,
   TwitterContextProvider,
 } from "@basix-forks/react-static-tweets";
-import { Suspense } from "react";
-import root from "react-shadow";
+import { Suspense, useCallback } from "react";
 import tweetCss from "@basix-forks/react-static-tweets/styles.css";
 
 const fragment = gql`
@@ -17,14 +16,24 @@ interface TweetProps {
 }
 
 export default function Tweet({ tweetId }: TweetProps) {
+  const ref = useCallback((template: HTMLTemplateElement) => {
+    const mode: any = template.getAttribute("shadowroot");
+    if (!template || mode == null) return;
+
+    const shadowRoot = template.parentElement?.attachShadow({ mode });
+    shadowRoot?.appendChild(template.content);
+  }, []);
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <root.div>
-        <link rel="stylesheet" href={tweetCss} />
-        <TwitterContextProvider value={{ swrOptions: { suspense: true } }}>
-          <TweetComponent id={tweetId} />
-        </TwitterContextProvider>
-      </root.div>
+      <div>
+        <template shadowroot="open" ref={ref}>
+          <link rel="stylesheet" href={tweetCss} />
+          <TwitterContextProvider value={{ swrOptions: { suspense: true } }}>
+            <TweetComponent id={tweetId} />
+          </TwitterContextProvider>
+        </template>
+      </div>
     </Suspense>
   );
 }
