@@ -9,4 +9,13 @@ document
 // global polyfill.
 window.global = window;
 
+// Workaorund React bug.
+HTMLTemplateElement.prototype.appendChild = function (child) {
+  return this.content.appendChild(child);
+}
+
+HTMLTemplateElement.prototype.removeChild = function (child) {
+  return this.content.removeChild(child);
+}
+
 hydrateRoot(document, <RemixBrowser />);
