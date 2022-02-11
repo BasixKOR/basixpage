@@ -18,4 +18,10 @@ HTMLTemplateElement.prototype.removeChild = function (child) {
   return this.content.removeChild(child);
 }
 
+Object.defineProperty(HTMLTemplateElement.prototype, "firstChild", {
+  get() {
+    return this.content.firstChild;
+  }
+})
+
 hydrateRoot(document, <RemixBrowser />);
