@@ -12,7 +12,7 @@ import Tweet from "~/components/Tweet";
 import tweetCss from "@basix-forks/react-static-tweets/styles.css";
 
 export const links: LinksFunction = () => [{
-  rel: "stylesheet",
+  rel: "prefetch",
   href: tweetCss
 }]
 
