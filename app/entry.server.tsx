@@ -8,6 +8,7 @@ import { PassThrough } from "stream";
 import "dotenv/config";
 
 let locales: string[];
+const NOT_LOCALIZED = ["_remix-crash"];
 
 export default async function handleRequest(
   request: Request,
@@ -35,7 +36,9 @@ export default async function handleRequest(
     locales = data._site.locales;
   }
 
-  if (!locales.some((l) => url.pathname.startsWith(`/${l}`))) {
+  if (
+    !locales.concat(NOT_LOCALIZED).some((l) => url.pathname.startsWith(`/${l}`))
+  ) {
     // checks if the URL doesn't contain a valid language
     const preferredLanguage = await localeCookie.parse(
       request.headers.get("Cookie")
