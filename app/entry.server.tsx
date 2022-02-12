@@ -69,10 +69,11 @@ export default async function handleRequest(
   );
 
   responseHeaders.set("Content-Type", "text/html");
-  responseHeaders.set(
-    "Set-Cookie",
-    await localeCookie.serialize(url.pathname.split("/")[1])
-  );
+  if (/\/\w{2}\//.test(url.pathname))
+    responseHeaders.set(
+      "Set-Cookie",
+      await localeCookie.serialize(url.pathname.split("/")[1])
+    );
 
   // @ts-ignore It is fine.
   return new Response(stream, {
