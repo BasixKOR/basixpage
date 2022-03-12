@@ -6,14 +6,12 @@ import {
 } from "remix";
 import { Giscus } from "@giscus/react";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
-import type { ArticlesListRecord, GetPostQuery } from "~/graphql/generated";
+import type { GetPostQuery } from "~/graphql/generated";
 import { toRemixMeta, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "~/graphql/fragments";
 import { OutletData } from "~/root";
 import { StructuredText } from "~/components/dato";
-import ArticlesList, {
-  fragment as articlesListFragment,
-} from "~/components/ArticlesList";
+import { fragment as articlesListFragment } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
 import { fragment as codeBlockFragment } from "~/components/CodeBlock";
 
@@ -83,10 +81,7 @@ export default function Post() {
             <h3>{data?.article?.description}</h3>
           </hgroup>
         </header>
-        <StructuredText
-          data={data?.article?.content}
-          locale={locale}
-        />
+        <StructuredText data={data?.article?.content} locale={locale} />
       </article>
       {data?.article?.comments && (
         <Giscus
