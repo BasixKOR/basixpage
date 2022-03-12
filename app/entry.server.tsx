@@ -56,7 +56,7 @@ export default async function handleRequest(
   const { pipe, abort } = renderToPipeableStream(
     <RemixServer context={remixContext} url={request.url} />,
     {
-      onCompleteShell() {
+      onShellReady() {
         pipe(stream);
       },
       onError(error) {
