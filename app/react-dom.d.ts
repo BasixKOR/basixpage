@@ -1,17 +1,27 @@
 import { ReactElement } from "react";
 
 interface RenderToPipeableStreamOptions {
-	bootstrapScripts?: string[];
-	onCompleteShell?(): void;
-	onCompleteAll?(): void;
-	onError?(e: Error): void;
+  identifierPrefix?: string;
+  namespaceURI?: string;
+  nonce?: string;
+  bootstrapScriptContent?: string;
+  bootstrapScripts?: Array<string>;
+  bootstrapModules?: Array<string>;
+  progressiveChunkSize?: number;
+  onShellReady?: () => void;
+  onShellError?: () => void;
+  onAllReady?: () => void;
+  onError?: (error: any) => void;
 }
 
 interface RenderToPipeableStreamReturn {
-	pipe(writable: NodeJS.WritableStream): void;
-	abort(): void;
+  pipe(writable: NodeJS.WritableStream): void;
+  abort(): void;
 }
 
-declare module 'react-dom/server' {
-	export function renderToPipeableStream(element: ReactElement, options: RenderToPipeableStreamOptions): RenderToPipeableStreamReturn;
+declare module "react-dom/server" {
+  export function renderToPipeableStream(
+    element: ReactElement,
+    options: RenderToPipeableStreamOptions
+  ): RenderToPipeableStreamReturn;
 }

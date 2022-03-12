@@ -1894,12 +1894,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^17.0.9":
-  version: 17.0.11
-  resolution: "@types/react-dom@npm:17.0.11"
+"@types/react-dom@npm:^17.0.13":
+  version: 17.0.13
+  resolution: "@types/react-dom@npm:17.0.13"
   dependencies:
     "@types/react": "*"
-  checksum: 4d5730dffbef86c887cecad7e3cecda424ce6a64d0b5441c63b5b015d48219868660a2bb1aa15e897e565ad8867fa6b885d4358b04e1c4e589ba4c07c3fda55c
+  checksum: 62c42a54ac8961c23a0e74b9cdd8b0a78563757e462b1ab665b2aa365bfd8b86a73d3f6eafc09a4a80fb08659321db168f012aa597c41c0df36f645a94e9266b
   languageName: node
   linkType: hard
 
@@ -1912,7 +1912,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^17.0.24":
+"@types/react@npm:*":
   version: 17.0.39
   resolution: "@types/react@npm:17.0.39"
   dependencies:
@@ -1920,6 +1920,17 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: bf04d3c2894559012710d595553e12b422d3b91cd8f4f7e122d8cb044ba9c2ba17f6e8a4e09581359cc5509ddc59cd8c8fabd6774f3505a40a45393f074d6e6e
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^17.0.40":
+  version: 17.0.40
+  resolution: "@types/react@npm:17.0.40"
+  dependencies:
+    "@types/prop-types": "*"
+    "@types/scheduler": "*"
+    csstype: ^3.0.2
+  checksum: 24d1b210b5bf3c7d49f9a7fe5490db02e005a1d989045a2d67528347557dd0bcb0d7bcf96088152697e97521ac4c9506d1357ee48a2b7d4e701c70d838dc7284
   languageName: node
   linkType: hard
 
@@ -8279,16 +8290,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:rc":
-  version: 18.0.0-rc.0
-  resolution: "react-dom@npm:18.0.0-rc.0"
+"react-dom@npm:^18.0.0-rc.2":
+  version: 18.0.0-rc.2-next-b9de50d2f-20220308
+  resolution: "react-dom@npm:18.0.0-rc.2-next-b9de50d2f-20220308"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.21.0-rc.0
+    scheduler: 0.21.0-rc.2-next-b9de50d2f-20220308
   peerDependencies:
-    react: ^18.0.0-rc.0
-  checksum: 713db349fad704527d328275d43c57ca670c801a6592e5f308c5572a7559540d0dcfc0b065a878cea4764f742d27fb2ed1065092ca40589759d5b51ecce6773b
+    react: 18.0.0-rc.2-next-b9de50d2f-20220308
+  checksum: d2619e2019349a376a9a1b7e04f8946fcaa747c8fafef71bca61c174700ce25d773b69d373c2ff9fbdef6dcfc8180275cc7825df4752a8b7c2cfcd3dd12e8a8f
   languageName: node
   linkType: hard
 
@@ -8365,13 +8375,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:rc":
-  version: 18.0.0-rc.0
-  resolution: "react@npm:18.0.0-rc.0"
+"react@npm:^18.0.0-rc.2":
+  version: 18.0.0-rc.2-next-b9de50d2f-20220308
+  resolution: "react@npm:18.0.0-rc.2-next-b9de50d2f-20220308"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: bb886ab411d7732ca8aace98bf0015a31f30b010bd674accdbbf4a474429b656b4463a58e677f33972bab9b820e949765e27fc6c468b13833b515e50b2d0b999
+  checksum: 201f3b7d2fda1460b4776caee512361bbf85baee36268a0e27e68b05de3bc8d0c786146f247e49d12d92c3b275f7da65f6c2addffe0067d51be02bbbd340aa12
   languageName: node
   linkType: hard
 
@@ -8614,8 +8623,8 @@ __metadata:
     "@remix-run/vercel": ^1.2.3
     "@types/dedent": ^0.7.0
     "@types/eslint": ^8
-    "@types/react": ^17.0.24
-    "@types/react-dom": ^17.0.9
+    "@types/react": ^17.0.40
+    "@types/react-dom": ^17.0.13
     "@types/react-syntax-highlighter": ^13.5.2
     cross-env: ^7.0.3
     date-fns: ^2.28.0
@@ -8626,9 +8635,9 @@ __metadata:
     graphql: ^16.3.0
     metronome-sh: ^1.0.0
     pretendard: ^1.2.1
-    react: rc
+    react: ^18.0.0-rc.2
     react-datocms: ^3.0.8
-    react-dom: rc
+    react-dom: ^18.0.0-rc.2
     react-feather: ^2.0.9
     react-syntax-highlighter: ^15.4.5
     remix: ^1.1.3
@@ -8916,13 +8925,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.21.0-rc.0":
-  version: 0.21.0-rc.0-next-fe905f152-20220107
-  resolution: "scheduler@npm:0.21.0-rc.0-next-fe905f152-20220107"
+"scheduler@npm:0.21.0-rc.2-next-b9de50d2f-20220308":
+  version: 0.21.0-rc.2-next-b9de50d2f-20220308
+  resolution: "scheduler@npm:0.21.0-rc.2-next-b9de50d2f-20220308"
   dependencies:
     loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: 72d1e7451c0af41ba6dcf53aaafeb72620e9d4d4cf30b3709f7a93c4e31fc872ce574a0a7bef168175ee4d148a2b9ca2e318d02387600c8b7f95da0d4ff185bb
+  checksum: 760b89623a0589727e7f2ae8eec5f34f3dde60e7fc762f8d86ce7ccccd28991479a2599a02d19f00aecda4b60aafb25f8e32f845c1f2c9dbd9bfbec6f9dea6e7
   languageName: node
   linkType: hard
 
