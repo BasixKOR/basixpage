@@ -5,8 +5,6 @@ import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
 import { PassThrough } from "stream";
 
-import "dotenv/config";
-
 let locales: string[];
 const NOT_LOCALIZED = ["_remix-crash"];
 
@@ -58,7 +56,7 @@ export default async function handleRequest(
   const { pipe, abort } = renderToPipeableStream(
     <RemixServer context={remixContext} url={request.url} />,
     {
-      onCompleteShell() {
+      onShellReady() {
         pipe(stream);
       },
       onError(error) {
