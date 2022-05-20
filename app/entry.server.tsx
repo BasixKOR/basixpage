@@ -1,6 +1,7 @@
 import { renderToPipeableStream } from "react-dom/server";
-import { createCookie, RemixServer } from "remix";
-import type { EntryContext } from "remix";
+import type { EntryContext } from "@remix-run/node";
+import { createCookie } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
 import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
 import { PassThrough } from "stream";

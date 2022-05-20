@@ -1,9 +1,5 @@
-import {
-  LoaderFunction,
-  MetaFunction,
-  useLoaderData,
-  useOutletContext,
-} from "remix";
+import { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import { Giscus } from "@giscus/react";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import type { GetPostQuery } from "~/graphql/generated";

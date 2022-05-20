@@ -1943,7 +1943,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@remix-run/node@npm:1.5.1":
+"@remix-run/node@npm:1.5.1, @remix-run/node@npm:^1.5.1":
   version: 1.5.1
   resolution: "@remix-run/node@npm:1.5.1"
   dependencies:
@@ -10190,6 +10190,7 @@ __metadata:
     "@picocss/pico": ^1.5.0
     "@remix-run/dev": ^1.5.1
     "@remix-run/eslint-config": ^1.5.1
+    "@remix-run/node": ^1.5.1
     "@remix-run/react": ^1.5.1
     "@remix-run/serve": ^1.5.1
     "@remix-run/vercel": ^1.5.1
@@ -10212,7 +10213,6 @@ __metadata:
     react-dom: ^18.1.0
     react-feather: ^2.0.9
     react-syntax-highlighter: ^15.5.0
-    remix: ^1.5.1
     remix-crash: ^0.1.2
     rosetta: ^1.1.0
     tiny-invariant: ^1.2.0
@@ -10232,13 +10232,6 @@ __metadata:
     react-dom: ">=16.8"
     remix: ">=1.0.5"
   checksum: 63b161988e96d30fcf10ea4973af86a5433a6adccd75acd458cb4f572a464ab7fdafdb242af8e3ab76e695b4c3c3a66f417d5acb6179c287a7b562ebfff48b96
-  languageName: node
-  linkType: hard
-
-"remix@npm:^1.5.1":
-  version: 1.5.1
-  resolution: "remix@npm:1.5.1"
-  checksum: d6551c3f83e1f85e60684fa78078b20559559a10056e7335ef5d8372a3827eedf0cf69fb70e15a42ad7bc6be285bbbb5a1b9546933245be08243e49aa135848e
   languageName: node
   linkType: hard
 

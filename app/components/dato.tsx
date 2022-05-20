@@ -3,7 +3,7 @@ import {
   StructuredTextPropTypes as DatoStructuredTextPropTypes,
   StructuredTextGraphQlResponseRecord,
 } from "react-datocms";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import { ArticlesListBlockFragment, CodeBlockFragment, ImageFragment } from "~/graphql/generated";
 import ArticlesList from "./ArticlesList";
 import CodeBlock from "./CodeBlock";
