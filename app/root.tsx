@@ -23,6 +23,7 @@ import { RootQuery } from "./graphql/generated";
 import { renderMetaTags, useQuerySubscription } from "react-datocms";
 import { MetaTagsFragment } from "./graphql/fragments";
 import { getSession } from "./utils/sessions.server";
+import { MetronomeLinks } from "@metronome-sh/react";
 
 export const meta: MetaFunction = () => {
   return { title: "Basixpage" };
@@ -58,7 +59,11 @@ export interface OutletData {
   locale: string;
 }
 
-export const loader: LoaderFunction = async ({ params, request, context: { env } }) => {
+export const loader: LoaderFunction = async ({
+  params,
+  request,
+  context: { env },
+}) => {
   return {
     query: await datoQuerySubscription({
       request,
@@ -102,6 +107,7 @@ export default function App() {
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <Meta />
         <Links />
+        <MetronomeLinks />
         {renderMetaTags(data?._site.faviconMetaTags!)}
         <script
           defer
