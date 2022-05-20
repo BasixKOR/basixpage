@@ -1,5 +1,6 @@
 import { useQuerySubscription } from "react-datocms";
-import { LoaderFunction, useLoaderData, useOutletContext } from "remix";
+import { LoaderFunction } from "@remix-run/node";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import ArticlesList from "~/components/ArticlesList";
 import { StructuredText } from "~/components/dato";

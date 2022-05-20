@@ -1,4 +1,4 @@
-import { LoaderFunction } from "remix";
+import { LoaderFunction } from "@remix-run/node";
 import { getFeed } from "~/utils/feed";
 
 export const loader: LoaderFunction = async ({ params, request }) => {

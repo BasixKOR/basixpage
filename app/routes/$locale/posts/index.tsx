@@ -1,5 +1,6 @@
 import { useQuerySubscription } from "react-datocms";
-import { LoaderFunction, useLoaderData, useOutletContext } from "remix";
+import { LoaderFunction } from "@remix-run/node";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import ArticlesList, { itemFragment as articleFragment } from "~/components/ArticlesList";
 import { GetPostsQuery } from "~/graphql/generated";

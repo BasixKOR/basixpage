@@ -1,16 +1,16 @@
+import type { MetaFunction } from "@remix-run/node";
+import { LinksFunction, LoaderFunction } from "@remix-run/node";
+
 import {
   Links,
-  LinksFunction,
   LiveReload,
-  LoaderFunction,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
   useMatches,
-} from "remix";
-import type { MetaFunction } from "remix";
+} from "@remix-run/react";
 
 import pico from "@picocss/pico/css/pico.min.css";
 import pretendard from "pretendard/dist/web/static/pretendard-subset.css";
@@ -119,5 +119,3 @@ export default function App() {
     </html>
   );
 }
-
-export { ErrorBoundary } from "remix-crash";

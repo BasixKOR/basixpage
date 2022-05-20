@@ -1,5 +1,5 @@
 import { Calendar } from "react-feather";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import type { ArticleItemFragment } from "~/graphql/generated";
 import { formatRelative, parseISO } from "date-fns";
 import { getDateFnsLocale } from "~/utils/i18n";

@@ -1,9 +1,9 @@
-import { renderToPipeableStream } from "react-dom/server";
-import { createCookie, RemixServer } from "remix";
-import type { EntryContext } from "remix";
+import { renderToReadableStream } from "react-dom/server";
+import type { EntryContext } from "@remix-run/node";
+import { createCookie } from "@remix-run/node";
+import { RemixServer } from "@remix-run/react";
 import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
-import { PassThrough } from "stream";
 
 let locales: string[];
 const NOT_LOCALIZED = ["_remix-crash"];
@@ -51,17 +51,12 @@ export default async function handleRequest(
     });
   }
 
-  const stream = new PassThrough({ encoding: "utf-8" });
-
-  const { pipe, abort } = renderToPipeableStream(
+  const stream = await renderToReadableStream(
     <RemixServer context={remixContext} url={request.url} />,
     {
-      onShellReady() {
-        pipe(stream);
-      },
       onError(error) {
         console.error(error);
-        abort();
+        responseStatusCode = 500;
       },
     }
   );
@@ -73,7 +68,6 @@ export default async function handleRequest(
       await localeCookie.serialize(url.pathname.split("/")[1])
     );
 
-  // @ts-ignore It is fine.
   return new Response(stream, {
     status: responseStatusCode,
     headers: responseHeaders,

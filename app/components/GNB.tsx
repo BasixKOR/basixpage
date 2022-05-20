@@ -1,5 +1,5 @@
 import { Globe } from "react-feather";
-import { Link } from "remix";
+import { Link } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { GnbFragmentFragment } from "~/graphql/generated";
 import { gql } from "~/utils/dato";
