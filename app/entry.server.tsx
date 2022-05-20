@@ -30,6 +30,7 @@ export default async function handleRequest(
           }
         }
       `,
+      token: "f2859b89942f0d5c3a17301a930f72",
     });
     locales = data._site.locales;
   }
