@@ -26,7 +26,6 @@
     "react-dom": "^18.1.0",
     "react-feather": "^2.0.9",
     "react-syntax-highlighter": "^15.5.0",
-    "remix-crash": "^0.1.2",
     "rosetta": "^1.1.0",
     "tiny-invariant": "^1.2.0"
   },

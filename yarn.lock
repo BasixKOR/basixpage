@@ -6388,13 +6388,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight.js@npm:^11.4.0":
-  version: 11.4.0
-  resolution: "highlight.js@npm:11.4.0"
-  checksum: df57994d1e6d8d32a0c8826d9b3019b86b36bae570fd849f807b538f12a2188b1aa775e1653c2b591c24eacd736c262dfb193e2bd3b155800ea6f882a611989c
-  languageName: node
-  linkType: hard
-
 "history@npm:^5.2.0":
   version: 5.2.0
   resolution: "history@npm:5.2.0"
@@ -10213,27 +10206,11 @@ __metadata:
     react-dom: ^18.1.0
     react-feather: ^2.0.9
     react-syntax-highlighter: ^15.5.0
-    remix-crash: ^0.1.2
     rosetta: ^1.1.0
     tiny-invariant: ^1.2.0
     typescript: ^4.6.4
   languageName: unknown
   linkType: soft
-
-"remix-crash@npm:^0.1.2":
-  version: 0.1.2
-  resolution: "remix-crash@npm:0.1.2"
-  dependencies:
-    highlight.js: ^11.4.0
-    source-map: ^0.7.3
-    style-inject: ^0.3.0
-  peerDependencies:
-    react: ">=16.8"
-    react-dom: ">=16.8"
-    remix: ">=1.0.5"
-  checksum: 63b161988e96d30fcf10ea4973af86a5433a6adccd75acd458cb4f572a464ab7fdafdb242af8e3ab76e695b4c3c3a66f417d5acb6179c287a7b562ebfff48b96
-  languageName: node
-  linkType: hard
 
 "remove-trailing-separator@npm:^1.0.1":
   version: 1.1.0
@@ -11185,13 +11162,6 @@ __metadata:
   version: 2.0.1
   resolution: "strip-json-comments@npm:2.0.1"
   checksum: 1074ccb63270d32ca28edfb0a281c96b94dc679077828135141f27d52a5a398ef5e78bcf22809d23cadc2b81dfbe345eb5fd8699b385c8b1128907dec4a7d1e1
-  languageName: node
-  linkType: hard
-
-"style-inject@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "style-inject@npm:0.3.0"
-  checksum: fa5f5f6730c3eb4ccc5735347935703c7c02759d4ddb5983d037ed0efda3c50a80640c2fed4f4d4c5ea600c97cdfdb45f79f734630324fa21a3a86723c0472da
   languageName: node
   linkType: hard
 

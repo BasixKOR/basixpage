@@ -119,5 +119,3 @@ export default function App() {
     </html>
   );
 }
-
-export { ErrorBoundary } from "remix-crash";
