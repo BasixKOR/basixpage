@@ -1,6 +1,6 @@
 import { renderToReadableStream } from "react-dom/server";
-import type { EntryContext } from "@remix-run/node";
-import { createCookie } from "@remix-run/node";
+import type { EntryContext } from "@remix-run/cloudflare";
+import { createCookie } from "@remix-run/cloudflare";
 import { RemixServer } from "@remix-run/react";
 import { gql, load } from "./utils/dato";
 import { GetLocalesQuery } from "./graphql/generated";
