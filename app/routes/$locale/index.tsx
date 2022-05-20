@@ -1,5 +1,5 @@
 import { useQuerySubscription } from "react-datocms";
-import { LoaderFunction } from "@remix-run/node";
+import { LoaderFunction } from "@remix-run/cloudflare";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import ArticlesList from "~/components/ArticlesList";
@@ -10,9 +10,14 @@ import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import { fragment as articlesListFragment } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
 
-export const loader: LoaderFunction = ({ params, request }) => {
+export const loader: LoaderFunction = ({
+  params,
+  request,
+  context: { env },
+}) => {
   return datoQuerySubscription({
     request,
+    env,
     query: gql`
       query Homepage($locale: SiteLocale) {
         homePage(locale: $locale) {

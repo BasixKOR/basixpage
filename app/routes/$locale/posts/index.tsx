@@ -1,5 +1,5 @@
 import { useQuerySubscription } from "react-datocms";
-import { LoaderFunction } from "@remix-run/node";
+import { LoaderFunction } from "@remix-run/cloudflare";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import ArticlesList, { itemFragment as articleFragment } from "~/components/ArticlesList";
@@ -10,9 +10,11 @@ import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 export const loader = async ({
   params,
   request,
+  context: { env },
 }: Parameters<LoaderFunction>[0]) => {
   return datoQuerySubscription({
     request,
+    env,
     query: gql`
       query getPosts($locale: SiteLocale) {
         allArticles(locale: $locale) {

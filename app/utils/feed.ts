@@ -3,7 +3,11 @@ import { FeedQuery } from "~/graphql/generated";
 import { gql, load } from "./dato";
 import { render } from "datocms-structured-text-to-plain-text";
 
-export async function getFeed(url: URL, language: string): Promise<Feed> {
+export async function getFeed(
+  url: URL,
+  language: string,
+  env: any
+): Promise<Feed> {
   const data = await load<FeedQuery>({
     query: gql`
       query Feed($locale: SiteLocale) {
@@ -26,6 +30,7 @@ export async function getFeed(url: URL, language: string): Promise<Feed> {
     variables: {
       locale: language,
     },
+    token: env.DATOCMS_READONLY_TOKEN,
   });
 
   const feed = new Feed({

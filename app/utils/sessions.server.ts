@@ -1,4 +1,4 @@
-import { createCookieSessionStorage } from "@remix-run/node";
+import { createCookieSessionStorage } from "@remix-run/cloudflare";
 
 const { getSession, commitSession, destroySession } =
   createCookieSessionStorage({
@@ -6,8 +6,7 @@ const { getSession, commitSession, destroySession } =
       name: "basixpage_session",
       maxAge: 604_800,
       path: '/',
-      secrets: [process.env.SESSION_SECRET!],
-    }
+    },
   });
 
 export { getSession, commitSession, destroySession };
