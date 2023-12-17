@@ -11,9 +11,9 @@ import { fragment as articlesListFragment } from "~/components/ArticlesList";
 import { fragment as imageFragment } from "~/components/Image";
 
 export const loader: LoaderFunction = ({ params, request }) => {
-  return datoQuerySubscription({
-    request,
-    query: gql`
+	return datoQuerySubscription({
+		request,
+		query: gql`
       query Homepage($locale: SiteLocale) {
         homePage(locale: $locale) {
           title
@@ -41,37 +41,37 @@ export const loader: LoaderFunction = ({ params, request }) => {
       ${articlesListFragment}
       ${imageFragment}
     `,
-    variables: {
-      locale: params.locale,
-    },
-  });
+		variables: {
+			locale: params.locale,
+		},
+	});
 };
 
 export default function Index() {
-  const query = useLoaderData<QueryListenerOptions<HomepageQuery>>();
-  const { data } = useQuerySubscription(query);
-  const { locale } = useOutletContext<OutletData>();
+	const query = useLoaderData<QueryListenerOptions<HomepageQuery>>();
+	const { data } = useQuerySubscription(query);
+	const { locale } = useOutletContext<OutletData>();
 
-  invariant(data, "data is undefined");
+	invariant(data, "data is undefined");
 
-  return (
-    <div className="container">
-      <article>
-        {data.homePage?.title && data.homePage.note && (
-          <header>
-            <h1>{data.homePage.title}</h1>
-            <StructuredText data={data.homePage.note} locale={locale} />
-          </header>
-        )}
-      </article>
-      {data.homePage?.content.map((item) => {
-        switch (item.__typename) {
-          case "ArticlesListRecord":
-            return <ArticlesList data={item.articles} locale={locale} />;
-          default:
-            return <span>{item.__typename}</span>;
-        }
-      })}
-    </div>
-  );
+	return (
+		<div className="container">
+			<article>
+				{data.homePage?.title && data.homePage.note && (
+					<header>
+						<h1>{data.homePage.title}</h1>
+						<StructuredText data={data.homePage.note} locale={locale} />
+					</header>
+				)}
+			</article>
+			{data.homePage?.content.map((item) => {
+				switch (item.__typename) {
+					case "ArticlesListRecord":
+						return <ArticlesList data={item.articles} locale={locale} />;
+					default:
+						return <span>{item.__typename}</span>;
+				}
+			})}
+		</div>
+	);
 }

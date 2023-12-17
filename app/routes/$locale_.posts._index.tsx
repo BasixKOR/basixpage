@@ -2,18 +2,20 @@ import { useQuerySubscription } from "react-datocms";
 import { LoaderFunction } from "@remix-run/node";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import ArticlesList, { itemFragment as articleFragment } from "~/components/ArticlesList";
+import ArticlesList, {
+	itemFragment as articleFragment,
+} from "~/components/ArticlesList";
 import { GetPostsQuery } from "~/graphql/generated";
 import { OutletData } from "~/root";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 
 export const loader = async ({
-  params,
-  request,
+	params,
+	request,
 }: Parameters<LoaderFunction>[0]) => {
-  return datoQuerySubscription({
-    request,
-    query: gql`
+	return datoQuerySubscription({
+		request,
+		query: gql`
       query getPosts($locale: SiteLocale) {
         allArticles(locale: $locale) {
           ...articleItem
@@ -21,22 +23,22 @@ export const loader = async ({
       }
       ${articleFragment}
     `,
-    variables: {
-      locale: params.locale,
-    },
-  });
+		variables: {
+			locale: params.locale,
+		},
+	});
 };
 
 export default function Posts() {
-  const query = useLoaderData<QueryListenerOptions<GetPostsQuery>>();
-  const { data } = useQuerySubscription(query);
-  const { locale } = useOutletContext<OutletData>();
+	const query = useLoaderData<QueryListenerOptions<GetPostsQuery>>();
+	const { data } = useQuerySubscription(query);
+	const { locale } = useOutletContext<OutletData>();
 
-  invariant(data, "data is undefined");
+	invariant(data, "data is undefined");
 
-  return (
-    <div className="container">
-      <ArticlesList data={data.allArticles} locale={locale} />
-    </div>
-  );
+	return (
+		<div className="container">
+			<ArticlesList data={data.allArticles} locale={locale} />
+		</div>
+	);
 }

@@ -27,28 +27,28 @@ export const fragment = gql`
 `;
 
 interface ArticlesListProps {
-  data: ArticleItemFragment[];
-  locale: string;
+	data: ArticleItemFragment[];
+	locale: string;
 }
 
 export default function ArticlesList({ data, locale }: ArticlesListProps) {
-  return (
-    <>
-      {data.map((post) => (
-        <article key={post.id}>
-          <Link to={`/${locale}/posts/${post.slug}`}>
-            <h1>{post.title}</h1>
-          </Link>
-          <span>
-            <Calendar />{" "}
-            {post.createdAt &&
-              formatRelative(parseISO(post.createdAt), new Date(), {
-                locale: getDateFnsLocale(locale),
-              })}
-          </span>
-          <p>{post.description}</p>
-        </article>
-      ))}
-    </>
-  );
+	return (
+		<>
+			{data.map((post) => (
+				<article key={post.id}>
+					<Link to={`/${locale}/posts/${post.slug}`}>
+						<h1>{post.title}</h1>
+					</Link>
+					<span>
+						<Calendar />{" "}
+						{post.createdAt &&
+							formatRelative(parseISO(post.createdAt), new Date(), {
+								locale: getDateFnsLocale(locale),
+							})}
+					</span>
+					<p>{post.description}</p>
+				</article>
+			))}
+		</>
+	);
 }

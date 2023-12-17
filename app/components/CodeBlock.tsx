@@ -1,8 +1,8 @@
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import invariant from 'tiny-invariant';
-import { CodeBlockFragment } from '~/graphql/generated';
-import { gql } from '~/utils/dato';
-import { monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs/index.js';
+import SyntaxHighlighter from "react-syntax-highlighter";
+import invariant from "tiny-invariant";
+import { CodeBlockFragment } from "~/graphql/generated";
+import { gql } from "~/utils/dato";
+import { monokai } from "react-syntax-highlighter/dist/cjs/styles/hljs/index.js";
 
 export const fragment = gql`
 	fragment codeBlock on CodeBlockRecord {
@@ -11,9 +11,17 @@ export const fragment = gql`
 		language
 		code
 	}
-`
+`;
 
 export default function CodeBlock({ language, code }: CodeBlockFragment) {
-	invariant(language, 'language is null');
-	return <SyntaxHighlighter className="code-block" style={monokai} language={language}>{code}</SyntaxHighlighter>
+	invariant(language, "language is null");
+	return (
+		<SyntaxHighlighter
+			className="code-block"
+			style={monokai}
+			language={language}
+		>
+			{code}
+		</SyntaxHighlighter>
+	);
 }
