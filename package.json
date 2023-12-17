@@ -15,6 +15,7 @@
     "@picocss/pico": "^1.5.10",
     "@remix-run/node": "^2.4.0",
     "@remix-run/react": "^2.4.0",
+    "@vercel/analytics": "^1.1.1",
     "date-fns": "^2.30.0",
     "datocms-structured-text-to-plain-text": "^2.0.4",
     "dedent": "^1.5.1",
