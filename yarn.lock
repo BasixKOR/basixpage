@@ -92,7 +92,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.14.0, @babel/core@npm:^7.16.5":
+"@babel/core@npm:^7.14.0":
   version: 7.17.0
   resolution: "@babel/core@npm:7.17.0"
   dependencies:
@@ -1086,7 +1086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/template@npm:^7.16.0, @babel/template@npm:^7.16.7":
+"@babel/template@npm:^7.16.7":
   version: 7.16.7
   resolution: "@babel/template@npm:7.16.7"
   dependencies:
@@ -4072,13 +4072,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cuid@npm:^2.1.8":
-  version: 2.1.8
-  resolution: "cuid@npm:2.1.8"
-  checksum: 12b85b3f5150a6f0b9e4f345c8d98299d74647419151751fa1132f6702fe2b5388ceceb1c9b49bad7cab1b3ac033c7cedea8ffc034930f90005b8a4345025288
-  languageName: node
-  linkType: hard
-
 "damerau-levenshtein@npm:^1.0.7":
   version: 1.0.8
   resolution: "damerau-levenshtein@npm:1.0.8"
@@ -4164,13 +4157,6 @@ __metadata:
   dependencies:
     array-flatten: ^3.0.0
   checksum: 9e10d4faae0c47eebeee028cb0e8c459ecea6fb3dc4950ed0ab310d9b7f18d8ee014071142a42098b20c77264b60a2dd928e9a6462ae4ffea50a70d867f82f34
-  languageName: node
-  linkType: hard
-
-"dayjs@npm:^1.10.7":
-  version: 1.10.7
-  resolution: "dayjs@npm:1.10.7"
-  checksum: a0a4ca95abaa03d0702161dc2c35d16121188e342f5052b9c61cdf784dab68af766f477c04f87f71c6af666fd4d13db9b9853b87265850d6093b7b04e1bb1cd7
   languageName: node
   linkType: hard
 
@@ -4413,13 +4399,6 @@ __metadata:
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
   checksum: ae6cd429c41ad01b164c59ea36f264a2c479598e61cba7c99da24175a7ab80ddf066420f2bec9a1c57a6bead411b4655ff15ad7d281c000a89791f48cbe939e7
-  languageName: node
-  linkType: hard
-
-"device-detector-js@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "device-detector-js@npm:3.0.1"
-  checksum: bc81e15ed530a2d86fb0d7ef05b62ca62905403161683459b2e640a6637252d9dd36174d027c2f9fd2117a95899b4a8c9c92dcdae7087e572576c2845286c5bc
   languageName: node
   linkType: hard
 
@@ -8139,28 +8118,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"metronome-sh@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "metronome-sh@npm:1.3.2"
-  dependencies:
-    "@babel/core": ^7.16.5
-    "@babel/template": ^7.16.0
-    cuid: ^2.1.8
-    dayjs: ^1.10.7
-    device-detector-js: ^3.0.0
-    recast: ^0.20.5
-    web-vitals: ^2.1.2
-    yargs: ^17.3.0
-  peerDependencies:
-    "@remix-run/server-runtime": ^1.3.3
-    react: "*"
-    remix: ^1.3.3
-  bin:
-    metronome: dist/cli/index.js
-  checksum: 08e186db92a4f05794ea290e391818ee4e87cc899a0eb289f045b14b55d120041ed98997fe0cea6401f76d73bafbe6561b03c32fa74ef4a86ebb93e1fe0b19a9
-  languageName: node
-  linkType: hard
-
 "micromark-core-commonmark@npm:^1.0.0, micromark-core-commonmark@npm:^1.0.1":
   version: 1.0.6
   resolution: "micromark-core-commonmark@npm:1.0.6"
@@ -9992,7 +9949,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"recast@npm:^0.20.4, recast@npm:^0.20.5":
+"recast@npm:^0.20.4":
   version: 0.20.5
   resolution: "recast@npm:0.20.5"
   dependencies:
@@ -10199,7 +10156,6 @@ __metadata:
     eslint: ^8.15.0
     feed: ^4.2.2
     graphql: ^16.5.0
-    metronome-sh: ^1.3.2
     pretendard: ^1.2.2
     react: ^18.1.0
     react-datocms: ^3.0.12
@@ -12015,13 +11971,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-vitals@npm:^2.1.2":
-  version: 2.1.4
-  resolution: "web-vitals@npm:2.1.4"
-  checksum: 03d3f47dbf55c3dce07beb0ff5de8ddd52e2d0a53a8df5c84e7a16dda93543341d67231fa79b1d9772b091419af4ec0fd395b8bcf451a0e26846e3f76b3d0efc
-  languageName: node
-  linkType: hard
-
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
@@ -12309,7 +12258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.0.0, yargs@npm:^17.3.0":
+"yargs@npm:^17.0.0":
   version: 17.3.1
   resolution: "yargs@npm:17.3.1"
   dependencies:
