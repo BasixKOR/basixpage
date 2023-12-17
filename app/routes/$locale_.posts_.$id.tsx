@@ -1,6 +1,6 @@
 import { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData, useOutletContext } from "@remix-run/react";
-import { Giscus } from "@giscus/react";
+import Giscus from "@giscus/react";
 import { datoQuerySubscription, gql, QueryListenerOptions } from "~/utils/dato";
 import type { GetPostQuery } from "~/graphql/generated";
 import { toRemixMeta, useQuerySubscription } from "react-datocms";
@@ -61,12 +61,13 @@ export const meta: MetaFunction = ({
   data,
 }: {
   data: QueryListenerOptions<GetPostQuery>;
-}) => toRemixMeta(data.initialData?.article?.seo ?? null);
+}) => [toRemixMeta(data.initialData?.article?.seo ?? null)];
 
 export default function Post() {
-  const query = useLoaderData<QueryListenerOptions<GetPostQuery>>();
-  const { data } = useQuerySubscription(query);
-  const { locale } = useOutletContext<OutletData>();
+  // FIXME: useLoaderData()'s JsonifyObject type is not working with react-datocms
+  const query = useLoaderData() as QueryListenerOptions<GetPostQuery>;
+  const { data } = useQuerySubscription<GetPostQuery>(query);
+  const { locale } = useOutletContext<OutletData>()
 
   return (
     <div className="container">
