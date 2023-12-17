@@ -2,7 +2,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import invariant from 'tiny-invariant';
 import { CodeBlockFragment } from '~/graphql/generated';
 import { gql } from '~/utils/dato';
-import { monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { monokai } from 'react-syntax-highlighter/dist/cjs/styles/hljs/index.js';
 
 export const fragment = gql`
 	fragment codeBlock on CodeBlockRecord {

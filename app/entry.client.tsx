@@ -1,7 +1,12 @@
-import { hydrateRoot } from "react-dom";
 import { RemixBrowser } from "@remix-run/react";
+import { startTransition, StrictMode } from "react";
+import { hydrateRoot } from "react-dom/client";
 
-// Remove Apollo Devtool hooks.
-document.querySelectorAll("html>script[type=module]").forEach(v => v.remove());
-
-hydrateRoot(document, <RemixBrowser />);
+startTransition(() => {
+  hydrateRoot(
+    document,
+    <StrictMode>
+      <RemixBrowser />
+    </StrictMode>
+  );
+});

@@ -25,7 +25,7 @@ import { MetaTagsFragment } from "./graphql/fragments";
 import { getSession } from "./utils/sessions.server";
 
 export const meta: MetaFunction = () => {
-  return { title: "Basixpage" };
+  return [{ title: "Basixpage" }];
 };
 
 export const links: LinksFunction = () => [
