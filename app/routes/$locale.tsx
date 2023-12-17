@@ -1,5 +1,6 @@
 import { useQuerySubscription } from "react-datocms";
-import { LinksFunction, LoaderFunction, useLoaderData, useOutletContext } from "remix";
+import { useLoaderData, useOutletContext } from "@remix-run/react";
+import { LinksFunction, LoaderFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import ArticlesList from "~/components/ArticlesList";
 import { StructuredText } from "~/components/dato";
@@ -26,7 +27,7 @@ export const loader: LoaderFunction = ({ params, request }) => {
           note {
             value
             links {
-              __typename
+              _typename
               ... on ArticleRecord {
                 id
                 slug

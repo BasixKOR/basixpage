@@ -15,6 +15,14 @@ interface TweetProps {
   tweetId: string;
 }
 
+declare module "react" {
+  interface HTMLAttributes<T extends HTMLTemplateElement> extends AriaAttributes, DOMAttributes<T> {
+    // extends React's HTMLAttributes
+    shadowroot?: "open" | "closed";
+  }
+}
+
+
 export default function Tweet({ tweetId }: TweetProps) {
   const ref = useCallback((template: HTMLTemplateElement | null) => {
     if (!template) return;
