@@ -100,11 +100,7 @@ export default function App() {
         <Meta />
         <Links />
         {renderMetaTags(data?._site.faviconMetaTags!)}
-        <script
-          defer
-          data-domain="basix.tech"
-          src="https://plausible.io/js/plausible.js"
-        ></script>
+        <script src="https://cdn.usefathom.com/script.js" data-spa="auto" data-site="HDVALCEB" defer></script>
       </head>
       <body>
         <GNB data={data!.gnb} locale={locale!} />
