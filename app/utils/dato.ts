@@ -13,15 +13,13 @@ export async function load<T>({
 	variables,
 	preview,
 }: LoadOptions): Promise<T> {
-	let endpoint = "https://graphql.datocms.com";
-
-	if (process.env.DATOCMS_ENVIRONMENT)
-		endpoint += `/environments/${process.env.DATOCMS_ENVIRONMENT}`;
-	if (preview) endpoint += `/preview`;
-
+	const endpoint = "https://graphql.datocms.com";
 	const headers = new Headers({
 		Authorization: `Bearer ${process.env.DATOCMS_READONLY_TOKEN}`,
 	});
+
+  if (preview) headers.append("X-Include-Drafts", "true");
+	if (process.env.DATOCMS_ENVIRONMENT) headers.append("X-Environment", process.env.DATOCMS_ENVIRONMENT);
 
 	const res = await fetch(endpoint, {
 		method: "POST",
